@@ -1,0 +1,162 @@
+/* Styles for webgl visualisations */
+
+body {
+
+}
+#WebGL-output {
+    /* set margin to 0 and overflow to hidden, to go fullscreen */
+    margin: 0;
+    overflow: hidden;
+}
+#infopanel {
+    text-align: center;
+    position: absolute;
+    top: 1%;
+    left: 0.5%;
+    width: 12.5%;
+}
+.version {
+    color: #7fa5ff;
+}
+.hidden {
+    display: none;
+}
+.centred {
+    text-align: center;
+}
+.left {
+    text-align: left;
+}
+#title {
+    position: absolute;
+    top: 1%;
+    left: 35%;
+    font-size: 2vw;
+    color: darkred;
+}
+#title img {
+    width: 15%;
+    vertical-align: middle;
+}
+#instructions {
+
+}
+#infopanel img {
+    width: 30%;
+}
+.mainButton {
+    border-radius: 5px;
+    position: absolute;
+    padding: 5px;
+    background-color: rgba(150, 150, 150, 0.5);
+    overflow: hidden;
+    color: #7fa5ff;
+}
+.mainText {
+    background-color: rgba(150, 150, 150, 0.0);
+    overflow: hidden;
+    color: #7fa5ff;
+}
+#loadButton {
+    top: 50px;
+    left: 75px;
+}
+.upload {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 0;
+    padding: 0px;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    background-color: #004040;
+    cursor: pointer;
+}
+.camControls {
+    background-color: rgba(150, 150, 150, 0);
+    color: #7fa5ff;
+    margin-bottom: 5%;
+}
+.camControls button {
+    text-align: center;
+    margin: 3px;
+}
+#camLeft {
+    float: right;
+}
+#camRight {
+    float: left;
+}
+#infoText {
+    padding-left: 10%;
+}
+.info {
+    margin: 0 auto 5% auto;
+    width: 75%;
+    padding: 1px;
+    border-radius: 5px;
+    background-color: rgba(150, 150, 150, 0.5);
+    color: #7fa5ff;
+}
+.info .pure-g {
+    margin-bottom: 5%;
+}
+.infoHeader {
+    text-align: center;
+}
+
+.nodeInfo {
+    position: absolute;
+    width: 300px;
+    top: 300px;
+    left: 300px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgba(119, 119, 119, 0.50);
+    color: #7fa5ff;
+}
+.vis-button {
+    background-color: rgba(150, 150, 150, 0.5);
+    color: #7fa5ff;
+}
+.screenShot {
+
+}
+.presets {
+    position: absolute;
+    top: 550px;
+    left: 60px;
+}
+.controls {
+    margin: 0px;
+}
+.singleControl {
+    margin: 0px;
+    text-align: center;
+}
+.button-xsmall {
+    font-size: 70%;
+}
+
+#instructionTitle {
+    font-size: 2vw;
+    color: darkred;
+}
+#instructionTitle img {
+    width: 15%;
+}
+#instructPage {
+    background-color: #5c5f64;
+}
+.instructionText p {
+    color: white;
+    text-align: left;
+}
+.instructionText h3 {
+    text-align: left;
+    color: #303030;
+}
+.instructionText img {
+    width: 50%;
+}

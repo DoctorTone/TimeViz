@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>Visualiser</title>
+
+    <!-- build:js dist/timeViz.min.js -->
+    <script type="text/javascript" src="js/three81.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/TrackballControls.js"></script>
+    <script type="text/javascript" src="js/dat.gui.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/Blob.js"></script>
+    <script type="text/javascript" src="js/canvas-toBlob.js"></script>
+    <script type="text/javascript" src="js/FileSaver.js"></script>
+    <script type="text/javascript" src="js/baseApp.js?v=0.2"></script>
+    <script type="text/javascript" src="js/dataLoader.js"></script>
+    <script type="text/javascript" src="js/spriteManager.js"></script>
+    <script type="text/javascript" src="js/visual.js?v=0.2"></script>
+    <!-- endbuild -->
+
+    <!-- build:css css/visStyles.min.css-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link href="css/visStyles.css?v=0.5" rel="stylesheet" type="text/css">
+    <!-- endbuild -->
+
+</head>
+<body>
+<!-- Stats output -->
+<div id="Stats-output">
+</div>
+<!-- Div which will hold the Output -->
+<div id="WebGL-output">
+</div>
+<!-- Title -->
+<div id="title">
+    <img src="images/ghost.png"> Highest Grossing Horror Films
+</div>
+<!-- Main info panel -->
+<div id="infopanel">
+    <div class="version">
+        <span>Visualiser (read only)</span>
+    </div>
+    <div id="instructions">
+        <a href="instructions.html" target="_blank"><img src="images/info.png"></a>
+    </div>
+    <div class="camControls">
+        <div>
+            <button id="camFront" class="btn btn-primary">Front</button>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <button id="camLeft" class="btn btn-primary">Left</button>
+                </div>
+                <div class="col-md-6">
+                    <button id="camRight" class="btn btn-primary">Right</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button id="camTop" class="btn btn-primary">Top</button>
+        </div>
+    </div>
+    <!-- Info sub-panel -->
+    <div class="info">
+        <div id="infoText">
+            <p>Information</p>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    Year:
+                </div>
+                <div id="currentYear" class="col-md-6">
+                    0000
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    Start:
+                </div>
+                <div id="startYear" class="col-md-6">
+                    0000
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    End:
+                </div>
+                <div id="endYear" class="col-md-6">
+                    0000
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    Number:
+                </div>
+                <div id="rendered" class="col-md-6">
+                    00
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="screenShot">
+        <button id="screen" class="vis-button btn">Screenshot</button>
+    </div>
+</div>
+
+<!-- Node info on mouse click -->
+<div id="nodePanel" class="nodeInfo hidden">
+    <div id="Film" class="infoHeader">
+        Film
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1-2 infoCell">
+            Year:
+        </div>
+        <div id="year" class="pure-u-1-2 infoCell">
+            TG
+        </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1-2 infoCell">
+            Director:
+        </div>
+        <div id="Director" class="pure-u-1-2 infoCell">
+            www.nottingham.ac.uk
+        </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1-2 infoCell">
+            Franchise:
+        </div>
+        <div id="Franchise" class="pure-u-1-2 infoCell">
+            www.youtube.com
+        </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1-2 infoCell">
+            Gross ($M):
+        </div>
+        <div id="Gross" class="pure-u-1-2 infoCell">
+            Nottingham
+        </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1-2 infoCell">
+            Rating:
+        </div>
+        <div id="Rating" class="pure-u-1-2 infoCell">
+            UK
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

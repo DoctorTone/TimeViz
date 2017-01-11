@@ -1,0 +1,22 @@
+[
+{"Film":"Saw II","year":2005,"Director":"Darren Lynn Bousman","Franchise":"Yes","Gross":87, "Rating":6.6},
+{"Film":"Scream 3","year":2000,"Director":"Wes Craven","Franchise":"Yes","Gross":89.1, "Rating":5.5},
+{"Film":"The Haunting","year":1999,"Director":"Jan de Bont","Franchise":"No","Gross":91.4, "Rating":4.8},
+{"Film":"The Others","year":2001,"Director":"Alejandro Amenabar","Franchise":"No","Gross":96.5, "Rating":7.6},
+{"Film":"Sleepy Hollow","year":1999,"Director":"Tim Burton","Franchise":"No","Gross":101.1, "Rating":7.4},
+{"Film":"Scream 2","year":1997,"Director":"Wes Craven","Franchise":"Yes","Gross":101.4, "Rating":6.1},
+{"Film":"Scream","year":1996,"Director":"Wes Craven","Franchise":"Yes","Gross":103, "Rating":7.2},
+{"Film":"Paranormal Activity 3","year":2011,"Director":"Ariel Schulman","Franchise":"Yes","Gross":104, "Rating":5.9},
+{"Film":"Interview with the Vampire","year":1994,"Director":"Neil Jordan","Franchise":"No","Gross":105.3, "Rating":7.6},
+{"Film":"Paranormal Activity","year":2007,"Director":"Oren Peli","Franchise":"Yes","Gross":107.9, "Rating":6.3},
+{"Film":"The Grudge","year":2004,"Director":"Takashi Shimizu","Franchise":"Yes","Gross":110.4, "Rating":5.9},
+{"Film":"The Village","year":2004,"Director":"M Night Shyamalan","Franchise":"No","Gross":114.2, "Rating":6.5},
+{"Film":"Van Helsing","year":2004,"Director":"Stephen Sommers","Franchise":"No","Gross":120.2, "Rating":6.0},
+{"Film":"Shutter Island","year":2010,"Director":"Martin Scorsese","Franchise":"No","Gross":128, "Rating":8.1},
+{"Film":"The Ring","year":2002,"Director":"Gore Verbinski","Franchise":"Yes","Gross":129.1, "Rating":7.1},
+{"Film":"The Blair Witch Project","year":1999,"Director":"Eduardo Sanchez","Franchise":"Yes","Gross":140.5, "Rating":6.4},
+{"Film":"What Lies Beneath","year":2000,"Director":"Robert Zemeckis","Franchise":"No","Gross":155.5, "Rating":6.6},
+{"Film":"The Exorcist","year":1973,"Director":"William Friedkin","Franchise":"Yes","Gross":232.9, "Rating":8.0},
+{"Film":"Jaws","year":1975,"Director":"Steven Spielberg","Franchise":"Yes","Gross":260, "Rating":8.1},
+{"Film":"The Sixth Sense","year":2005,"Director":"M Night Shyamalan","Franchise":"No","Gross":293.5, "Rating":8.2}
+]
