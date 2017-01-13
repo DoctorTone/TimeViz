@@ -33,41 +33,48 @@
 <!-- Div which will hold the Output -->
 <div id="WebGL-output">
 </div>
-<!-- Title -->
+
 <div id="title">
-    <img src="images/ghost.png"> Highest Grossing Horror Films
+    <img src="images/speed.png"> World Speed Records
 </div>
-<!-- Main info panel -->
-<div id="infopanel">
-    <div class="version">
-        <span>Visualiser (read only)</span>
+
+<div id="version" class="infoPanel">
+    <span>Visualiser</span>
+</div>
+
+<div id="instructions" class="infoPanel">
+    <a href="instructions.html" target="_blank"><img src="images/info.png"></a>
+</div>
+
+<div id="camControls" class="infoPanel centred">
+    <div>
+        <button id="camFront" class="btn btn-primary">Front</button>
     </div>
-    <div id="instructions">
-        <a href="instructions.html" target="_blank"><img src="images/info.png"></a>
-    </div>
-    <div class="camControls">
-        <div>
-            <button id="camFront" class="btn btn-primary">Front</button>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <button id="camLeft" class="btn btn-primary">Left</button>
-                </div>
-                <div class="col-md-6">
-                    <button id="camRight" class="btn btn-primary">Right</button>
-                </div>
+    <div class="container-fluid">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <button id="camLeft" class="btn btn-primary">Left</button>
+            </div>
+            <div class="col-md-4">
+                <img src="images/camera.png">
+            </div>
+            <div class="col-md-4">
+                <button id="camRight" class="btn btn-primary">Right</button>
             </div>
         </div>
-        <div>
-            <button id="camTop" class="btn btn-primary">Top</button>
-        </div>
     </div>
+    <div>
+        <button id="camTop" class="btn btn-primary">Top</button>
+    </div>
+</div>
+
+<!-- Main info panel -->
+<div id="information" class="infoPanel centred">
     <!-- Info sub-panel -->
-    <div class="info">
-        <div id="infoText">
-            <p>Information</p>
-        </div>
+    <div id="infoText">
+        <span class="label label-default">Information</span>
+    </div>
+    <div id="records">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
@@ -80,7 +87,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    Start:
+                    Air:
                 </div>
                 <div id="startYear" class="col-md-6">
                     0000
@@ -89,7 +96,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    End:
+                    Land:
                 </div>
                 <div id="endYear" class="col-md-6">
                     0000
@@ -98,7 +105,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    Number:
+                    Water:
                 </div>
                 <div id="rendered" class="col-md-6">
                     00
@@ -112,7 +119,7 @@
 </div>
 
 <!-- Node info on mouse click -->
-<div id="nodePanel" class="nodeInfo hidden">
+<div id="nodePanel" class="nodeInfo noDisplay">
     <div id="Film" class="infoHeader">
         Film
     </div>

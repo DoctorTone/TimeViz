@@ -8,6 +8,24 @@ body {
     margin: 0;
     overflow: hidden;
 }
+.noDisplay {
+    display: none;
+}
+.centred {
+    text-align: center;
+}
+.infoPanel {
+    position: absolute;
+}
+.row.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+    padding-right: 0;
+    padding-left: 0;
+}
 #infopanel {
     text-align: center;
     position: absolute;
@@ -15,8 +33,27 @@ body {
     left: 0.5%;
     width: 12.5%;
 }
-.version {
+#version {
+    top: 2%;
+    left: 4%;
     color: #7fa5ff;
+    font-size: 1.4vw;
+}
+#instructions {
+    top: 6%;
+    left: 5%;
+}
+#camControls {
+    top: 15%;
+    left: -1%;
+}
+#camControls img {
+    width: 50%;
+    padding: 2px;
+}
+#information {
+    top: 30%;
+    left: 3%;
 }
 .hidden {
     display: none;
@@ -37,9 +74,6 @@ body {
 #title img {
     width: 15%;
     vertical-align: middle;
-}
-#instructions {
-
 }
 #infopanel img {
     width: 30%;
@@ -88,24 +122,15 @@ body {
 #camRight {
     float: left;
 }
-#infoText {
-    padding-left: 10%;
-}
-.info {
-    margin: 0 auto 5% auto;
-    width: 75%;
-    padding: 1px;
-    border-radius: 5px;
-    background-color: rgba(150, 150, 150, 0.5);
-    color: #7fa5ff;
-}
-.info .pure-g {
-    margin-bottom: 5%;
-}
 .infoHeader {
     text-align: center;
 }
-
+#infoText {
+    font-size: 1.2vw;
+}
+#records {
+    font-size: 1vw;
+}
 .nodeInfo {
     position: absolute;
     width: 300px;
