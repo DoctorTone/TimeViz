@@ -16,9 +16,9 @@ var VisNode = function() {
     this.yearOffset = 2000;
     this.labelPosition = new THREE.Vector3();
     this.geomPosition = new THREE.Vector3();
-    this.alignment = 15;
+    this.alignment = 10;
     this.textColour =  new THREE.LineBasicMaterial({color: 0xffff00});
-    this.labelScale = new THREE.Vector3(100, 80, 1);
+    this.labelScale = new THREE.Vector3(100, 50, 1);
 };
 
 VisNode.prototype = {

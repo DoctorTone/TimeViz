@@ -370,10 +370,12 @@ VisApp.prototype.createGUI = function() {
         var obj = {
             labelWidth: 100,
             labelWidthRange : [50,300],
-            labelHeight: 80,
-            labelHeightRange: [50, 250],
-            bool: false,
-            select : ['Option 1', 'Option 2', 'Option 3']
+            labelHeight: 50,
+            labelHeightRange: [30, 250],
+            speedScale: 1,
+            speedScaleRange: [0.5, 30],
+            renderStyles: ["Cull", "Colour", "Transparent"],
+            textColour: '#ff0000'
         };
 
         var controlKit = new ControlKit();
@@ -385,15 +387,17 @@ VisApp.prototype.createGUI = function() {
             .addSlider(obj,'labelHeight','labelHeightRange',{label: 'LabelHeight', dp: 1, onChange: function() {
                 _this.onLabelScale(Y_AXIS, obj.labelHeight);
             }})
-            .addCheckbox(obj, 'bool', {label: 'Bool'})
-            .addSelect(obj,'select', {label: 'Option',onChange: function(index){
-                console.log(index);
-            }});
+            .addSlider(obj,'speedScale','speedScaleRange',{label: 'SpeedScale', dp: 1, onChange: function() {
+                _this.onSpeedScale(obj.speedScale);
+            }})
+            .addSelect(obj, 'renderStyles', {
+                selected: 0,
+                onChange: function(index) {
+                    _this.onChangeRenderStyle(obj.renderStyles[index]);
+                }
+            })
+            .addColor(obj, 'textColour')
     });
-};
-
-VisApp.prototype.guiChanged = function() {
-    this.updateRequired = true;
 };
 
 VisApp.prototype.onLabelScale = function(axis, scale) {
@@ -416,6 +420,14 @@ VisApp.prototype.onLabelScale = function(axis, scale) {
             console.log("No axis for scale!");
             break;
     }
+};
+
+VisApp.prototype.onSpeedScale = function(scale) {
+
+};
+
+VisApp.prototype.onChangeRenderStyle = function(style) {
+
 };
 
 VisApp.prototype.styleChanged = function(value) {
