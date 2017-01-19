@@ -8,6 +8,14 @@ body {
     margin: 0;
     overflow: hidden;
 }
+@font-face {
+    font-family: 'maximum_line_speederregular';
+    src: url('../fonts/maxi_l_s-webfont.woff2') format('woff2'),
+        url('../fonts/maxi_l_s-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 .noDisplay {
     display: none;
 }
@@ -68,8 +76,9 @@ body {
     position: absolute;
     top: 1%;
     left: 35%;
-    font-size: 2vw;
+    font-size: 1.6vw;
     color: darkred;
+    font-family: 'maximum_line_speederregular';
 }
 #title img {
     width: 15%;

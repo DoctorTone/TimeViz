@@ -56,7 +56,6 @@ var spriteManager = (function () {
             var spriteMaterial = new THREE.SpriteMaterial({
                     transparent: false,
                     opacity: opacity,
-                    useScreenCoordinates: false,
                     map: texture}
             );
 
