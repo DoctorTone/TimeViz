@@ -165,7 +165,9 @@ VisApp.prototype.update = function() {
     BaseApp.prototype.update.call(this);
 
     //Update time slider
-    var slider = this.scene.getObjectByName('groupSlider');
+    //var slider = this.scene.getObjectByName('groupSlider');
+    //DEBUG
+    /*
     if(slider)
     {
         if(this.data) {
@@ -188,6 +190,7 @@ VisApp.prototype.update = function() {
             }
         }
     }
+    */
 
     //Object selection
 
@@ -253,12 +256,10 @@ VisApp.prototype.createScene = function() {
     var dataLoad = new dataLoader();
     var dataParser = function(data) {
         _this.data = data;
-        _this.generateGUIControls();
-        _this.generateData();
-        _this.updateRequired = true;
+        _this.addSceneContents();
     };
 
-    dataLoad.load("data/horror.json", dataParser);
+    dataLoad.load("data/speed.json", dataParser);
 
     //Light box
     var boxGeom = new THREE.BoxGeometry(2, 2, 2);
@@ -271,6 +272,22 @@ VisApp.prototype.createScene = function() {
     }
 
     this.scene.add(box);
+};
+
+VisApp.prototype.addSceneContents = function() {
+    //Create a node for each data item
+    this.visNodes = [];
+    var numNodes = this.data.length;
+    var i, visNode, info;
+
+    for(i=0; i<numNodes; ++i) {
+        visNode = new VisNode();
+        this.visNodes.push(visNode);
+        info = this.data[i];
+        visNode.init(info);
+        visNode.createGeometry();
+        this.scene.add(visNode.getNode());
+    }
 };
 
 VisApp.prototype.removeNodes = function() {
@@ -341,124 +358,36 @@ VisApp.prototype.reDraw = function() {
     //Remove nodes
     this.removeNodes();
 
-    this.generateData();
+    //this.generateData();
 };
 
 VisApp.prototype.createGUI = function() {
-    //Create GUI - use dat.GUI for now
-    this.guiControls = new function() {
-        this.font = 'Arial';
-        this.fontSize = 18;
-        this.fontWidth = 25;
-        this.fontHeight = 15;
-        this.xAxisScale = 1.2;
-        this.yAxisScale = 10;
-        this.filename = '';
-        this.ShowLabels = true;
-        this.LabelTop = 'Film';
-        this.LabelBottom = '';
-
-        //Colours
-        this.Text = [255, 184, 57];
-        this.Label = [55, 55, 55];
-        this.Border = [0, 0, 0];
-        this.Node = "#7777ff";
-        this.Slider = "#5f7c9d";
-        this.Ground = '#16283c';
-        this.Background = '#5c5f64';
-        //Render styles
-        this.RenderStyle = 'Cull';
-        //Node shapes
-        this.NodeStyle = 'Sphere';
-        //Light Pos
-        this.LightX = 400;
-        this.LightY = 400;
-        this.LightZ = 400;
-    };
-
-    var gui = new dat.GUI();
-
-    //Folders
+    //Create GUI - controlKit
     var _this = this;
-    gui.add(this.guiControls, 'filename', this.filename).listen();
-    this.guiAppear = gui.addFolder("Appearance");
-    var font = this.guiAppear.add(this.guiControls, 'font');
-    font.onChange(function(value) {
-        _this.guiChanged();
-    });
+    window.addEventListener('load',function(){
+        var obj = {
+            labelWidth: 1,
+            labelWidthRange : [0.5,30],
+            labelHeight: 1,
+            labelHeightRange: [0.5, 30],
+            bool: false,
+            select : ['Option 1', 'Option 2', 'Option 3']
+        };
 
-    var fontSize = this.guiAppear.add(this.guiControls, 'fontSize', 10, 36);
-    fontSize.onChange(function(value) {
-        _this.guiChanged();
-    });
+        var controlKit = new ControlKit();
 
-    var fontWidth = this.guiAppear.add(this.guiControls, 'fontWidth', 1, 50);
-    fontWidth.onChange(function(value) {
-        _this.guiChanged();
-    });
+        controlKit.addPanel({label: 'Appearance'})
+            .addSlider(obj,'labelWidth','labelWidthRange',{label: 'LabelWidth', step: 1, dp: 0, onFinish: function() {
 
-    var fontHeight = this.guiAppear.add(this.guiControls, 'fontHeight', 1, 50);
-    fontHeight.onChange(function(value) {
-        _this.guiChanged();
-    });
+            }})
+            .addSlider(obj,'labelHeight','labelHeightRange',{label: 'LabelWidth', step: 1, dp: 0, onFinish: function() {
 
-    var xAxisScale = this.guiAppear.add(this.guiControls, 'xAxisScale', 0.01, 5, 0.01);
-    xAxisScale.onChange(function(value) {
-        _this.guiChanged();
+            }})
+            .addCheckbox(obj, 'bool', {label: 'Bool'})
+            .addSelect(obj,'select', {label: 'Option',onChange: function(index){
+                console.log(index);
+            }});
     });
-
-    var yAxisScale = this.guiAppear.add(this.guiControls, 'yAxisScale', 0.01, 25).step(0.001);
-    yAxisScale.onChange(function(value) {
-        _this.guiChanged();
-    });
-
-    var renderStyle = this.guiAppear.add(this.guiControls, 'RenderStyle', ['Cull', 'Colour', 'Transparent']).onChange(function(value) {
-        _this.styleChanged(value);
-    });
-    renderStyle.listen();
-
-    this.guiAppear.add(this.guiControls, 'NodeStyle', ['Sphere', 'Cube', 'Diamond']).onChange(function(value) {
-        _this.updateRequired = true;
-    });
-
-    this.guiAppear.addColor(this.guiControls, 'Text').onChange(function(value) {
-        _this.textColourChanged(value);
-    });
-    this.guiAppear.addColor(this.guiControls, 'Label').onChange(function(value) {
-        _this.updateRequired = true;
-    });
-    this.guiAppear.addColor(this.guiControls, 'Border').onChange(function(value) {
-        _this.updateRequired = true;
-    });
-    this.guiAppear.addColor(this.guiControls, 'Node').onChange(function(value) {
-        _this.nodeColourChanged(value);
-    });
-    this.guiAppear.addColor(this.guiControls, 'Slider').onChange(function(value) {
-        _this.sliderColourChanged(value);
-    });
-    this.guiAppear.addColor(this.guiControls, 'Ground').onChange(function(value) {
-        _this.groundColourChanged(value);
-    });
-    this.guiAppear.addColor(this.guiControls, 'Background').onChange(function(value) {
-        _this.backgroundColourChanged(value);
-    });
-    this.guiAppear.add(this.guiControls, 'ShowLabels').onChange(function(value) {
-        _this.labelChanged(value);
-    });
-
-    //Light
-    this.guiAppear.add(this.guiControls, 'LightX', -this.lightRange, this.lightRange).onChange(function(value) {
-        _this.changeLightPos(value, -1);
-    });
-    this.guiAppear.add(this.guiControls, 'LightY', -this.lightRange, this.lightRange).onChange(function(value) {
-        _this.changeLightPos(value, 0);
-    });
-    this.guiAppear.add(this.guiControls, 'LightZ', -this.lightRange, this.lightRange).onChange(function(value) {
-        _this.changeLightPos(value, 1);
-    });
-
-    this.guiData = gui.addFolder("Data");
-    this.gui = gui;
 };
 
 VisApp.prototype.guiChanged = function() {
@@ -1083,13 +1012,13 @@ function addAxes(group, font) {
         bevelEnabled: false
     };
 
-    var textGeom = new THREE.TextGeometry("Gross", options);
+    var textGeom = new THREE.TextGeometry("Surface", options);
     var axisText = new THREE.Mesh(textGeom, material);
     axisText.position.x = axisXHeight + 2;
     axisText.position.y = 0;
     axisText.position.z = 0;
     group.add(axisText);
-    textGeom = new THREE.TextGeometry("Rating", options);
+    textGeom = new THREE.TextGeometry("Speed", options);
     axisText = new THREE.Mesh(textGeom, material);
     axisText.position.x = -10;
     axisText.position.y = axisYHeight + 2;
