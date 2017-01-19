@@ -122,6 +122,8 @@ function populatePanel(data, left, top) {
     }
 }
 
+var X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
+
 //Init this app from base
 function VisApp() {
     BaseApp.call(this);
@@ -366,10 +368,10 @@ VisApp.prototype.createGUI = function() {
     var _this = this;
     window.addEventListener('load',function(){
         var obj = {
-            labelWidth: 1,
-            labelWidthRange : [0.5,30],
-            labelHeight: 1,
-            labelHeightRange: [0.5, 30],
+            labelWidth: 100,
+            labelWidthRange : [50,300],
+            labelHeight: 80,
+            labelHeightRange: [50, 250],
             bool: false,
             select : ['Option 1', 'Option 2', 'Option 3']
         };
@@ -377,11 +379,11 @@ VisApp.prototype.createGUI = function() {
         var controlKit = new ControlKit();
 
         controlKit.addPanel({label: 'Appearance'})
-            .addSlider(obj,'labelWidth','labelWidthRange',{label: 'LabelWidth', step: 1, dp: 0, onFinish: function() {
-
+            .addSlider(obj,'labelWidth','labelWidthRange',{label: 'LabelWidth', dp: 1, onChange: function() {
+                _this.onLabelScale(X_AXIS, obj.labelWidth);
             }})
-            .addSlider(obj,'labelHeight','labelHeightRange',{label: 'LabelWidth', step: 1, dp: 0, onFinish: function() {
-
+            .addSlider(obj,'labelHeight','labelHeightRange',{label: 'LabelHeight', dp: 1, onChange: function() {
+                _this.onLabelScale(Y_AXIS, obj.labelHeight);
             }})
             .addCheckbox(obj, 'bool', {label: 'Bool'})
             .addSelect(obj,'select', {label: 'Option',onChange: function(index){
@@ -392,6 +394,28 @@ VisApp.prototype.createGUI = function() {
 
 VisApp.prototype.guiChanged = function() {
     this.updateRequired = true;
+};
+
+VisApp.prototype.onLabelScale = function(axis, scale) {
+    //Scale vis node labels
+    var i, numNodes = this.visNodes.length;
+    switch(axis) {
+        case X_AXIS:
+            for(i=0; i<numNodes; ++i) {
+                this.visNodes[i].updateLabelWidth(scale);
+            }
+            break;
+
+        case Y_AXIS:
+            for(i=0; i<numNodes; ++i) {
+                this.visNodes[i].updateLabelHeight(scale);
+            }
+            break;
+
+        default:
+            console.log("No axis for scale!");
+            break;
+    }
 };
 
 VisApp.prototype.styleChanged = function(value) {

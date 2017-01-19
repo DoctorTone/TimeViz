@@ -14,6 +14,11 @@ var VisNode = function() {
     this.nodeMaterial = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour});
     this.nodeXPos = 0;
     this.yearOffset = 2000;
+    this.labelPosition = new THREE.Vector3();
+    this.geomPosition = new THREE.Vector3();
+    this.alignment = 15;
+    this.textColour =  new THREE.LineBasicMaterial({color: 0xffff00});
+    this.labelScale = new THREE.Vector3(100, 80, 1);
 };
 
 VisNode.prototype = {
@@ -34,7 +39,26 @@ VisNode.prototype = {
     createGeometry: function() {
         var nodeMesh = new THREE.Mesh(this.nodeGeometry, this.nodeMaterial);
         nodeMesh.position.set(this.nodeXPos, this.speed, this.year - this.yearOffset);
+        this.geomPosition.copy(nodeMesh.position);
         this.nodeGroup.add(nodeMesh);
+        var label = this.createLabel();
+        this.nodeGroup.add(label);
+        this.label = label;
+    },
+
+    createLabel: function() {
+        var limit = 20;
+        this.labelPosition.copy(this.geomPosition);
+        this.labelPosition.y += this.alignment;
+        return spriteManager.create(this.vehicle, limit, this.textColour, this.labelPosition, this.labelScale, 32, 1, true, true);
+    },
+
+    updateLabelWidth: function(scale) {
+        this.label.scale.x = scale;
+    },
+
+    updateLabelHeight: function(scale) {
+        this.label.scale.y = scale;
     },
 
     getNode: function() {
