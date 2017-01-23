@@ -71,6 +71,11 @@ VisNode.prototype = {
 
     getSpeed: function() {
         return this.speed;
+    },
+
+    setColour: function(colour) {
+        this.nodeMaterial.color.setStyle(colour);
+        this.nodeMaterial.needsUpdate = true;
     }
 };
 

@@ -375,7 +375,10 @@ VisApp.prototype.createGUI = function() {
             speedScale: 1,
             speedScaleRange: [0.5, 30],
             renderStyles: ["Cull", "Colour", "Transparent"],
-            textColour: '#ff0000'
+            nodeColour: '#0000ff',
+            sliderColour: '#5f7c9d',
+            groundColour: '#16283c',
+            backgroundColour: '#5c5f64'
         };
 
         var controlKit = new ControlKit();
@@ -396,7 +399,18 @@ VisApp.prototype.createGUI = function() {
                     _this.onChangeRenderStyle(obj.renderStyles[index]);
                 }
             })
-            .addColor(obj, 'textColour')
+            .addColor(obj, 'nodeColour', {colorMode: 'hex', onChange: function() {
+                _this.onNodeColourChanged(obj.nodeColour);
+            }})
+            .addColor(obj, 'sliderColour', {colorMode: 'hex', onChange: function() {
+                _this.onSliderColourChanged(obj.sliderColour);
+            }})
+            .addColor(obj, 'groundColour', {colorMode: 'hex', onChange: function() {
+                _this.onGroundColourChanged(obj.groundColour);
+            }})
+            .addColor(obj, 'backgroundColour', {colorMode: 'hex', onChange: function() {
+                _this.onBackgroundColourChanged(obj.backgroundColour);
+            }})
     });
 };
 
@@ -430,6 +444,31 @@ VisApp.prototype.onChangeRenderStyle = function(style) {
 
 };
 
+VisApp.prototype.onNodeColourChanged = function(colour) {
+    var i, numNodes = this.visNodes.length;
+    for(i=0; i<numNodes; ++i) {
+        this.visNodes[i].setColour(colour);
+    }
+};
+
+VisApp.prototype.onSliderColourChanged = function(colour) {
+    var slider = this.scene.getObjectByName('timeSlider', true);
+    if(slider) {
+        slider.material.color.setStyle(colour);
+    }
+};
+
+VisApp.prototype.onGroundColourChanged = function(value) {
+    var ground = this.scene.getObjectByName('ground');
+    if(ground) {
+        ground.material.color.setStyle(value);
+    }
+};
+
+VisApp.prototype.onBackgroundColourChanged = function(value) {
+    this.renderer.setClearColor(value, 1.0);
+};
+
 VisApp.prototype.styleChanged = function(value) {
     switch (value) {
         case 'Cull':
@@ -443,28 +482,6 @@ VisApp.prototype.styleChanged = function(value) {
             break;
     }
     this.updateRequired = true;
-};
-
-VisApp.prototype.textColourChanged = function(value) {
-    this.updateRequired = true;
-};
-VisApp.prototype.nodeColourChanged = function(value) {
-    this.updateRequired = true;
-};
-VisApp.prototype.sliderColourChanged = function(value) {
-    var slider = this.scene.getObjectByName('timeSlider', true);
-    if(slider) {
-        slider.material.color.setStyle(value);
-    }
-};
-VisApp.prototype.groundColourChanged = function(value) {
-    var ground = this.scene.getObjectByName('ground');
-    if(ground) {
-        ground.material.color.setStyle(value);
-    }
-};
-VisApp.prototype.backgroundColourChanged = function(value) {
-    this.renderer.setClearColor(value, 1.0);
 };
 
 VisApp.prototype.analyseItem = function(item, updatedData) {
