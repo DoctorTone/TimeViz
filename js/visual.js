@@ -367,7 +367,7 @@ VisApp.prototype.createGUI = function() {
     //Create GUI - controlKit
     var _this = this;
     window.addEventListener('load',function(){
-        var obj = {
+        var appearanceConfig = {
             labelWidth: 100,
             labelWidthRange : [50,300],
             labelHeight: 50,
@@ -381,36 +381,55 @@ VisApp.prototype.createGUI = function() {
             backgroundColour: '#5c5f64'
         };
 
+        var dataConfig = {
+            year: 0,
+            yearRange: [-200, 200],
+            selection: 10,
+            selectionRange: [1, 300],
+            showSlider: true
+        };
+
         var controlKit = new ControlKit();
 
         controlKit.addPanel({label: 'Appearance'})
-            .addSlider(obj,'labelWidth','labelWidthRange',{label: 'LabelWidth', dp: 1, onChange: function() {
-                _this.onLabelScale(X_AXIS, obj.labelWidth);
+            .addSlider(appearanceConfig,'labelWidth','labelWidthRange',{label: 'LabelWidth', dp: 1, onChange: function() {
+                _this.onLabelScale(X_AXIS, appearanceConfig.labelWidth);
             }})
-            .addSlider(obj,'labelHeight','labelHeightRange',{label: 'LabelHeight', dp: 1, onChange: function() {
-                _this.onLabelScale(Y_AXIS, obj.labelHeight);
+            .addSlider(appearanceConfig,'labelHeight','labelHeightRange',{label: 'LabelHeight', dp: 1, onChange: function() {
+                _this.onLabelScale(Y_AXIS, appearanceConfig.labelHeight);
             }})
-            .addSlider(obj,'speedScale','speedScaleRange',{label: 'SpeedScale', dp: 1, onChange: function() {
-                _this.onSpeedScale(obj.speedScale);
+            .addSlider(appearanceConfig,'speedScale','speedScaleRange',{label: 'SpeedScale', dp: 1, onChange: function() {
+                _this.onSpeedScale(appearanceConfig.speedScale);
             }})
-            .addSelect(obj, 'renderStyles', {
+            .addSelect(appearanceConfig, 'renderStyles', {
                 selected: 0,
                 onChange: function(index) {
-                    _this.onChangeRenderStyle(obj.renderStyles[index]);
+                    _this.onChangeRenderStyle(appearanceConfig.renderStyles[index]);
                 }
             })
-            .addColor(obj, 'nodeColour', {colorMode: 'hex', onChange: function() {
-                _this.onNodeColourChanged(obj.nodeColour);
+            .addColor(appearanceConfig, 'nodeColour', {colorMode: 'hex', onChange: function() {
+                _this.onNodeColourChanged(appearanceConfig.nodeColour);
             }})
-            .addColor(obj, 'sliderColour', {colorMode: 'hex', onChange: function() {
-                _this.onSliderColourChanged(obj.sliderColour);
+            .addColor(appearanceConfig, 'sliderColour', {colorMode: 'hex', onChange: function() {
+                _this.onSliderColourChanged(appearanceConfig.sliderColour);
             }})
-            .addColor(obj, 'groundColour', {colorMode: 'hex', onChange: function() {
-                _this.onGroundColourChanged(obj.groundColour);
+            .addColor(appearanceConfig, 'groundColour', {colorMode: 'hex', onChange: function() {
+                _this.onGroundColourChanged(appearanceConfig.groundColour);
             }})
-            .addColor(obj, 'backgroundColour', {colorMode: 'hex', onChange: function() {
-                _this.onBackgroundColourChanged(obj.backgroundColour);
+            .addColor(appearanceConfig, 'backgroundColour', {colorMode: 'hex', onChange: function() {
+                _this.onBackgroundColourChanged(appearanceConfig.backgroundColour);
+            }});
+
+        controlKit.addPanel({label: 'Data'})
+            .addSlider(dataConfig, 'year', 'yearRange', {label: 'Year', dp: 0, onChange: function() {
+                _this.onYearChanged(dataConfig.year);
             }})
+            .addSlider(dataConfig, 'selection', 'selectionRange', {label: 'Selection', dp: 0, onChange: function() {
+                _this.onSelectionChanged(dataConfig.selection);
+            }})
+            .addCheckbox(dataConfig, 'showSlider', {label: 'ShowSlider', onChange: function() {
+                _this.onToggleSlider(dataConfig.showSlider);
+            }});
     });
 };
 
@@ -467,6 +486,27 @@ VisApp.prototype.onGroundColourChanged = function(value) {
 
 VisApp.prototype.onBackgroundColourChanged = function(value) {
     this.renderer.setClearColor(value, 1.0);
+};
+
+VisApp.prototype.onYearChanged = function(year) {
+    var slider = this.scene.getObjectByName('timeSlider', true);
+    if(slider) {
+        slider.position.z = year;
+    }
+};
+
+VisApp.prototype.onSelectionChanged = function(selection) {
+    var slider = this.scene.getObjectByName('timeSlider', true);
+    if(slider) {
+        slider.scale.z = selection;
+    }
+};
+
+VisApp.prototype.onToggleSlider = function(status) {
+    var slider = this.scene.getObjectByName('timeSlider', true);
+    if(slider) {
+        slider.visible = status;
+    }
 };
 
 VisApp.prototype.styleChanged = function(value) {
