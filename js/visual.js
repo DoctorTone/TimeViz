@@ -391,45 +391,45 @@ VisApp.prototype.createGUI = function() {
 
         var controlKit = new ControlKit();
 
-        controlKit.addPanel({label: 'Appearance'})
-            .addSlider(appearanceConfig,'labelWidth','labelWidthRange',{label: 'LabelWidth', dp: 1, onChange: function() {
-                _this.onLabelScale(X_AXIS, appearanceConfig.labelWidth);
-            }})
-            .addSlider(appearanceConfig,'labelHeight','labelHeightRange',{label: 'LabelHeight', dp: 1, onChange: function() {
-                _this.onLabelScale(Y_AXIS, appearanceConfig.labelHeight);
-            }})
-            .addSlider(appearanceConfig,'speedScale','speedScaleRange',{label: 'SpeedScale', dp: 1, onChange: function() {
-                _this.onSpeedScale(appearanceConfig.speedScale);
-            }})
-            .addSelect(appearanceConfig, 'renderStyles', {
-                selected: 0,
-                onChange: function(index) {
-                    _this.onChangeRenderStyle(appearanceConfig.renderStyles[index]);
-                }
-            })
-            .addColor(appearanceConfig, 'nodeColour', {colorMode: 'hex', onChange: function() {
-                _this.onNodeColourChanged(appearanceConfig.nodeColour);
-            }})
-            .addColor(appearanceConfig, 'sliderColour', {colorMode: 'hex', onChange: function() {
-                _this.onSliderColourChanged(appearanceConfig.sliderColour);
-            }})
-            .addColor(appearanceConfig, 'groundColour', {colorMode: 'hex', onChange: function() {
-                _this.onGroundColourChanged(appearanceConfig.groundColour);
-            }})
-            .addColor(appearanceConfig, 'backgroundColour', {colorMode: 'hex', onChange: function() {
-                _this.onBackgroundColourChanged(appearanceConfig.backgroundColour);
-            }});
-
-        controlKit.addPanel({label: 'Data'})
-            .addSlider(dataConfig, 'year', 'yearRange', {label: 'Year', dp: 0, onChange: function() {
-                _this.onYearChanged(dataConfig.year);
-            }})
-            .addSlider(dataConfig, 'selection', 'selectionRange', {label: 'Selection', dp: 0, onChange: function() {
-                _this.onSelectionChanged(dataConfig.selection);
-            }})
-            .addCheckbox(dataConfig, 'showSlider', {label: 'ShowSlider', onChange: function() {
-                _this.onToggleSlider(dataConfig.showSlider);
-            }});
+        controlKit.addPanel({width: 250})
+            .addGroup({label: 'Appearance', enable: false})
+                .addSlider(appearanceConfig,'labelWidth','labelWidthRange',{label: 'LabelWidth', dp: 1, onChange: function() {
+                    _this.onLabelScale(X_AXIS, appearanceConfig.labelWidth);
+                }})
+                .addSlider(appearanceConfig,'labelHeight','labelHeightRange',{label: 'LabelHeight', dp: 1, onChange: function() {
+                    _this.onLabelScale(Y_AXIS, appearanceConfig.labelHeight);
+                }})
+                .addSlider(appearanceConfig,'speedScale','speedScaleRange',{label: 'SpeedScale', dp: 1, onChange: function() {
+                    _this.onSpeedScale(appearanceConfig.speedScale);
+                }})
+                .addSelect(appearanceConfig, 'renderStyles', {
+                    selected: 0,
+                    onChange: function(index) {
+                        _this.onChangeRenderStyle(appearanceConfig.renderStyles[index]);
+                    }
+                })
+                .addColor(appearanceConfig, 'nodeColour', {colorMode: 'hex', onChange: function() {
+                    _this.onNodeColourChanged(appearanceConfig.nodeColour);
+                }})
+                .addColor(appearanceConfig, 'sliderColour', {colorMode: 'hex', onChange: function() {
+                    _this.onSliderColourChanged(appearanceConfig.sliderColour);
+                }})
+                .addColor(appearanceConfig, 'groundColour', {colorMode: 'hex', onChange: function() {
+                    _this.onGroundColourChanged(appearanceConfig.groundColour);
+                }})
+                .addColor(appearanceConfig, 'backgroundColour', {colorMode: 'hex', onChange: function() {
+                    _this.onBackgroundColourChanged(appearanceConfig.backgroundColour);
+                }})
+            .addGroup({label: 'Data', enable: false})
+                .addSlider(dataConfig, 'year', 'yearRange', {label: 'Year', dp: 0, onChange: function() {
+                    _this.onYearChanged(dataConfig.year);
+                }})
+                .addSlider(dataConfig, 'selection', 'selectionRange', {label: 'Selection', dp: 0, onChange: function() {
+                    _this.onSelectionChanged(dataConfig.selection);
+                }})
+                .addCheckbox(dataConfig, 'showSlider', {label: 'ShowSlider', onChange: function() {
+                    _this.onToggleSlider(dataConfig.showSlider);
+                }});
     });
 };
 
