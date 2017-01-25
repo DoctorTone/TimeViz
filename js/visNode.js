@@ -13,10 +13,13 @@ var VisNode = function() {
     this.nodeGeometry = new THREE.SphereBufferGeometry(geomConfig.nodeRadius, geomConfig.nodeWidthSegments, geomConfig.nodeHeightSegments);
     this.nodeMaterial = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour});
     this.nodeXPos = 0;
-    this.yearOffset = 2000;
+    this.yearOffset = 0;
+    this.yearScale = 4;
+    this.mapOffset = 0;
+    this.speedScale = 3;
     this.labelPosition = new THREE.Vector3();
     this.geomPosition = new THREE.Vector3();
-    this.alignment = 10;
+    this.alignment = 3;
     this.textColour =  new THREE.LineBasicMaterial({color: 0xffff00});
     this.labelScale = new THREE.Vector3(100, 50, 1);
 };
@@ -36,9 +39,15 @@ VisNode.prototype = {
         return true;
     },
 
+    setBounds: function(dataMin, areaMin, areaScale) {
+        this.yearOffset = dataMin;
+        this.mapOffset = areaMin;
+        this.yearScale = areaScale;
+    },
+
     createGeometry: function() {
         var nodeMesh = new THREE.Mesh(this.nodeGeometry, this.nodeMaterial);
-        nodeMesh.position.set(this.nodeXPos, this.speed, this.year - this.yearOffset);
+        nodeMesh.position.set(this.nodeXPos, this.speed/this.speedScale, ((this.year - this.yearOffset)*this.yearScale)-this.mapOffset);
         this.geomPosition.copy(nodeMesh.position);
         this.nodeGroup.add(nodeMesh);
         var label = this.createLabel();

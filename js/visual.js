@@ -251,6 +251,7 @@ VisApp.prototype.createScene = function() {
     this.SLIDER_HEIGHT = 200;
     this.SLIDER_DEPTH = 20;
     addTimeSlider(this.axesGroup, this.SLIDER_WIDTH, this.SLIDER_HEIGHT, this.SLIDER_DEPTH);
+    this.axesGroup.position.z = -this.mapOffset;
     this.scene.add(this.axesGroup);
     this.sliderEnabled = true;
 
@@ -287,6 +288,7 @@ VisApp.prototype.addSceneContents = function() {
         this.visNodes.push(visNode);
         info = this.data[i];
         visNode.init(info);
+        visNode.setBounds(this.yearOffset, this.mapOffset, this.yearScale);
         visNode.createGeometry();
         this.scene.add(visNode.getNode());
     }
@@ -365,6 +367,10 @@ VisApp.prototype.reDraw = function() {
 
 VisApp.prototype.createGUI = function() {
     //Create GUI - controlKit
+    var yearOffset = 1890;
+    this.yearOffset = yearOffset;
+    this.yearScale = 4;
+    this.mapOffset = 220;
     var _this = this;
     window.addEventListener('load',function(){
         var appearanceConfig = {
@@ -382,10 +388,10 @@ VisApp.prototype.createGUI = function() {
         };
 
         var dataConfig = {
-            year: 0,
-            yearRange: [-200, 200],
-            selection: 10,
-            selectionRange: [1, 300],
+            year: yearOffset,
+            yearRange: [yearOffset, 2000],
+            selection: 5,
+            selectionRange: [5, 110],
             showSlider: true
         };
 
@@ -489,16 +495,16 @@ VisApp.prototype.onBackgroundColourChanged = function(value) {
 };
 
 VisApp.prototype.onYearChanged = function(year) {
-    var slider = this.scene.getObjectByName('timeSlider', true);
+    var slider = this.scene.getObjectByName('groupSlider', true);
     if(slider) {
-        slider.position.z = year;
+        slider.position.z = (year-this.yearOffset)*this.yearScale-this.mapOffset;
     }
 };
 
 VisApp.prototype.onSelectionChanged = function(selection) {
     var slider = this.scene.getObjectByName('timeSlider', true);
     if(slider) {
-        slider.scale.z = selection;
+        slider.scale.z = selection*this.yearScale;
     }
 };
 
@@ -1150,9 +1156,11 @@ function addGroundPlane(scene, width, height) {
 function addTimeSlider(group, width, height, depth) {
     //Create time slider box
     //DEBUG - DEPTH NEEDS REWORKING
-    var boxGeometry = new THREE.BoxGeometry(width, height, 1, 4, 4, 4);
+    var boxDepth = 1, boxScaleZ = 5;
+    var boxGeometry = new THREE.BoxGeometry(width, height, boxDepth, 4, 4, 4);
     var boxMaterial = new THREE.MeshPhongMaterial({color: 0x5f7c9d, transparent: true, opacity: 0.4, depthTest: false});
     var box = new THREE.Mesh(boxGeometry, boxMaterial);
+    box.scale.z = boxScaleZ;
     box.name = 'timeSlider';
     box.position.set(width/2, height/2, 0);
 
