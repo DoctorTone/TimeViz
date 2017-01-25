@@ -46,10 +46,9 @@ VisNode.prototype = {
     },
 
     createGeometry: function() {
-        var nodeMesh = new THREE.Mesh(this.nodeGeometry, this.nodeMaterial);
-        nodeMesh.position.set(this.nodeXPos, this.speed/this.speedScale, ((this.year - this.yearOffset)*this.yearScale)-this.mapOffset);
-        this.geomPosition.copy(nodeMesh.position);
-        this.nodeGroup.add(nodeMesh);
+        this.nodeMesh = new THREE.Mesh(this.nodeGeometry, this.nodeMaterial);
+        this.nodeMesh.position.set(this.nodeXPos, this.speed/this.speedScale, ((this.year - this.yearOffset)*this.yearScale)-this.mapOffset);
+        this.nodeGroup.add(this.nodeMesh);
         var label = this.createLabel();
         this.nodeGroup.add(label);
         this.label = label;
@@ -57,7 +56,7 @@ VisNode.prototype = {
 
     createLabel: function() {
         var limit = 20;
-        this.labelPosition.copy(this.geomPosition);
+        this.labelPosition.copy(this.nodeMesh.position);
         this.labelPosition.y += this.alignment;
         return spriteManager.create(this.vehicle, limit, this.textColour, this.labelPosition, this.labelScale, 32, 1, true, true);
     },
@@ -85,6 +84,13 @@ VisNode.prototype = {
     setColour: function(colour) {
         this.nodeMaterial.color.setStyle(colour);
         this.nodeMaterial.needsUpdate = true;
+    },
+
+    setSpeedScale: function(scale) {
+        this.speedScale = scale;
+        this.nodeMesh.position.set(this.nodeXPos, this.speed/this.speedScale, ((this.year - this.yearOffset)*this.yearScale)-this.mapOffset);
+        this.label.position.copy(this.nodeMesh.position);
+        this.label.position.y += this.alignment;
     },
 
     setVisibility: function(status) {

@@ -207,6 +207,9 @@ VisApp.prototype.createScene = function() {
 VisApp.prototype.addSceneContents = function() {
     //Create a node for each data item
     this.visNodes = [];
+    var landNodeGroup = new THREE.Object3D();
+    landNodeGroup.name = "landRecords";
+    this.scene.add(landNodeGroup);
     var numNodes = this.data.length;
     var i, visNode, info;
 
@@ -217,8 +220,9 @@ VisApp.prototype.addSceneContents = function() {
         visNode.init(info);
         visNode.setBounds(this.yearOffset, this.mapOffset, this.yearScale);
         visNode.createGeometry();
-        this.scene.add(visNode.getNode());
+        landNodeGroup.add(visNode.getNode());
     }
+    this.landNodeGroup = landNodeGroup;
     this.reDrawNodes();
 };
 
@@ -277,7 +281,7 @@ VisApp.prototype.createGUI = function() {
             labelHeight: 50,
             labelHeightRange: [30, 250],
             speedScale: 1,
-            speedScaleRange: [0.5, 30],
+            speedScaleRange: [1, 10],
             renderStyles: ["Cull", "Colour", "Transparent"],
             nodeColour: '#0000ff',
             sliderColour: '#5f7c9d',
@@ -362,7 +366,10 @@ VisApp.prototype.onLabelScale = function(axis, scale) {
 };
 
 VisApp.prototype.onSpeedScale = function(scale) {
-
+    var i, numNodes = this.visNodes.length;
+    for(i=0; i<numNodes; ++i) {
+        this.visNodes[i].setSpeedScale(3/scale);
+    }
 };
 
 VisApp.prototype.onChangeRenderStyle = function(style) {
