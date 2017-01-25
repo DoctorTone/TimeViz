@@ -2,23 +2,6 @@
  * Created by atg on 14/05/2014.
  */
 
-/*
-function eliminateDuplicates(arr) {
-    var i,
-        len=arr.length,
-        out=[],
-        obj={};
-
-    for (i=0;i<len;i++) {
-        obj[arr[i]]=0;
-    }
-    for (i in obj) {
-        out.push(i);
-    }
-    return out;
-}
-*/
-
 function getDuplicates(arr, xAxis, yAxis) {
     //Get frequency of required members
     var dupes = [];
@@ -53,31 +36,6 @@ function getDuplicates(arr, xAxis, yAxis) {
     }
 
     return frequency;
-
-    /*
-    for(var i=0; i<freqs.length; ++i) {
-        dupes.splice(i+2, 1, freqs[i]);
-    }
-
-    return dupes;
-    */
-    /*
-    var counts = {};
-    arr.forEach(function(element) {
-        counts[element] = (counts[element] || 0) + 1;
-    });
-
-    //Construct array with duplicate + frequency
-    var dupes = [];
-    for(var key in counts) {
-        if(counts[key] > 1) {
-            dupes.push(parseInt(key));
-            dupes.push(counts[key]);
-        }
-    }
-
-    return dupes;
-    */
 }
 
 function eliminateDuplicates(arr) {
@@ -165,37 +123,6 @@ VisApp.prototype.update = function() {
     var clicked = this.mouse.clicked;
 
     BaseApp.prototype.update.call(this);
-
-    //Update time slider
-    //var slider = this.scene.getObjectByName('groupSlider');
-    //DEBUG
-    /*
-    if(slider)
-    {
-        if(this.data) {
-            if (this.updateRequired) {
-                //Set slider position
-                if(this.sliderEnabled) {
-                    var pos = (this.guiControls.year - this.yearMin) / (this.yearMax - this.yearMin) * this.GROUND_DEPTH - this.GROUND_DEPTH / 2;
-                    slider.position.z = pos;
-                    //Alter slider width accordingly
-                    var box = this.scene.getObjectByName('timeSlider', true);
-                    if(box) {
-                        box.scale.z = this.GROUND_DEPTH/(this.yearMax-this.yearMin) * this.guiControls.Selection;
-                    }
-                } else {
-                    slider.position.z = 0;
-                }
-                this.reDraw();
-                this.updateInfoPanel(this.guiControls.year, this.guiControls.Selection, this.nodesInSlider);
-                this.updateRequired = false;
-            }
-        }
-    }
-    */
-
-    //Object selection
-
 
     if(this.pickedObjects.length > 0) {
         //DEBUG
@@ -292,33 +219,7 @@ VisApp.prototype.addSceneContents = function() {
         visNode.createGeometry();
         this.scene.add(visNode.getNode());
     }
-};
-
-VisApp.prototype.removeNodes = function() {
-    //Remove all nodes and labels
-    while(this.nodesRendered--) {
-        var name;
-        for(var child=0; child<this.scene.children.length; ++child) {
-            name = this.scene.children[child].name;
-            if(name.indexOf('Node') >= 0) {
-                this.scene.remove(this.scene.children[child]);
-                break;
-            }
-        }
-    }
-    this.nodesRendered = 0;
-
-    while(this.spritesRendered--) {
-        var name;
-        for(var child=0; child<this.scene.children.length; ++child) {
-            name = this.scene.children[child].name;
-            if(name.indexOf('Sprite') >= 0) {
-                this.scene.remove(this.scene.children[child]);
-                break;
-            }
-        }
-    }
-    this.spritesRendered = 0;
+    this.reDrawNodes();
 };
 
 VisApp.prototype.outlineNode = function(name) {
@@ -358,19 +259,16 @@ VisApp.prototype.outlineNode = function(name) {
     }
 };
 
-VisApp.prototype.reDraw = function() {
-    //Remove nodes
-    this.removeNodes();
-
-    //this.generateData();
-};
-
 VisApp.prototype.createGUI = function() {
     //Create GUI - controlKit
     var yearOffset = 1890;
+    var year = 1890;
     this.yearOffset = yearOffset;
+    this.year = year;
     this.yearScale = 4;
     this.mapOffset = 220;
+    var yearSelection = 5;
+    this.yearSelection = yearSelection;
     var _this = this;
     window.addEventListener('load',function(){
         var appearanceConfig = {
@@ -388,10 +286,10 @@ VisApp.prototype.createGUI = function() {
         };
 
         var dataConfig = {
-            year: yearOffset,
+            year: year,
             yearRange: [yearOffset, 2000],
-            selection: 5,
-            selectionRange: [5, 110],
+            selection: yearSelection,
+            selectionRange: [yearSelection, 110],
             showSlider: true
         };
 
@@ -428,9 +326,11 @@ VisApp.prototype.createGUI = function() {
                 }})
             .addGroup({label: 'Data', enable: false})
                 .addSlider(dataConfig, 'year', 'yearRange', {label: 'Year', dp: 0, onChange: function() {
+                    _this.year = dataConfig.year;
                     _this.onYearChanged(dataConfig.year);
                 }})
                 .addSlider(dataConfig, 'selection', 'selectionRange', {label: 'Selection', dp: 0, onChange: function() {
+                    _this.yearSelection = dataConfig.selection;
                     _this.onSelectionChanged(dataConfig.selection);
                 }})
                 .addCheckbox(dataConfig, 'showSlider', {label: 'ShowSlider', onChange: function() {
@@ -498,6 +398,8 @@ VisApp.prototype.onYearChanged = function(year) {
     var slider = this.scene.getObjectByName('groupSlider', true);
     if(slider) {
         slider.position.z = (year-this.yearOffset)*this.yearScale-this.mapOffset;
+        this.reDrawNodes();
+        this.updateInfoPanel();
     }
 };
 
@@ -505,6 +407,7 @@ VisApp.prototype.onSelectionChanged = function(selection) {
     var slider = this.scene.getObjectByName('timeSlider', true);
     if(slider) {
         slider.scale.z = selection*this.yearScale;
+        this.reDrawNodes();
     }
 };
 
@@ -513,6 +416,10 @@ VisApp.prototype.onToggleSlider = function(status) {
     if(slider) {
         slider.visible = status;
     }
+};
+
+VisApp.prototype.updateInfoPanel = function() {
+    $('#currentYear').html(this.year);
 };
 
 VisApp.prototype.styleChanged = function(value) {
@@ -528,6 +435,21 @@ VisApp.prototype.styleChanged = function(value) {
             break;
     }
     this.updateRequired = true;
+};
+
+VisApp.prototype.reDrawNodes = function() {
+    var i, numNodes = this.visNodes.length;
+    var yearMax = this.year + (this.yearSelection/2), yearMin = this.year - (this.yearSelection/2);
+    var node, nodeYear;
+    for(i=0; i<numNodes; ++i) {
+        node = this.visNodes[i];
+        nodeYear = node.getYear();
+        if(nodeYear >= yearMin && nodeYear <= yearMax) {
+            node.setVisibility(true);
+        } else {
+            node.setVisibility(false);
+        }
+    }
 };
 
 VisApp.prototype.analyseItem = function(item, updatedData) {
@@ -1036,14 +958,6 @@ function updatePresets(preset, total) {
     if(preset < 1) preset = '*';
     document.getElementById('presetNum').innerHTML = 'Preset :  ' + preset + '/' + total;
 }
-
-VisApp.prototype.updateInfoPanel = function(year, duration, objects) {
-    //Update info GUI
-    document.getElementById('currentYear').innerHTML = year;
-    document.getElementById('startYear').innerHTML = year - duration/2;
-    document.getElementById('endYear').innerHTML = year + duration/2;
-    document.getElementById('rendered').innerHTML = objects;
-};
 
 VisApp.prototype.reset = function() {
     //Reset rendering and data

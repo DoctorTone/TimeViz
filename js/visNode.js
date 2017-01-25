@@ -85,6 +85,10 @@ VisNode.prototype = {
     setColour: function(colour) {
         this.nodeMaterial.color.setStyle(colour);
         this.nodeMaterial.needsUpdate = true;
+    },
+
+    setVisibility: function(status) {
+        this.nodeGroup.visible = status;
     }
 };
 
