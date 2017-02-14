@@ -175,7 +175,7 @@ VisApp.prototype.createScene = function() {
     this.GROUND_WIDTH = 360;
     addGroundPlane(this.scene, this.GROUND_WIDTH, this.GROUND_DEPTH);
     this.SLIDER_WIDTH = 350;
-    this.SLIDER_HEIGHT = 200;
+    this.SLIDER_HEIGHT = 275;
     this.SLIDER_DEPTH = 20;
     addTimeSlider(this.axesGroup, this.SLIDER_WIDTH, this.SLIDER_HEIGHT, this.SLIDER_DEPTH);
     this.axesGroup.position.z = -this.mapOffset;
@@ -427,6 +427,7 @@ VisApp.prototype.onToggleSlider = function(status) {
 
 VisApp.prototype.updateInfoPanel = function() {
     $('#currentYear').html(this.year);
+
 };
 
 VisApp.prototype.styleChanged = function(value) {
@@ -1005,7 +1006,7 @@ function addAxes(group, font) {
     var material = new THREE.MeshPhongMaterial({color: 0x7777ff});
 
     //Add graph axes
-    var axisYHeight = 200;
+    var axisYHeight = 275;
     var axisXHeight = 350;
     var axisWidth = 2;
     var cylinderY = new THREE.CylinderGeometry(axisWidth/2, axisWidth/2, axisYHeight, 8, 8, false);

@@ -17,7 +17,7 @@
     <script type="text/javascript" src="js/spriteManager.js?v=0.3"></script>
     <script type="text/javascript" src="js/visNode.js?v=0.7"></script>
     <script type="text/javascript" src="js/controlKit.min.js?v=0.1"></script>
-    <script type="text/javascript" src="js/visual.js?v=0.8"></script>
+    <script type="text/javascript" src="js/visual.js?v=0.9"></script>
     <!-- endbuild -->
 
     <!-- build:css css/visStyles.min.css-->
@@ -73,16 +73,16 @@
 <div id="information" class="infoPanel centred">
     <!-- Info sub-panel -->
     <div id="infoText">
-        <span class="label label-default">Information</span>
+        <span class="label label-warning">Information</span>
     </div>
     <div id="records">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    Year:
+                    <span class="label label-default">Year :</span>
                 </div>
-                <div id="currentYear" class="col-md-6">
-                    1890
+                <div class="col-md-6">
+                    <span id="currentYear" class="label label-default">1890</span>
                 </div>
             </div>
 
@@ -91,7 +91,7 @@
                     Air:
                 </div>
                 <div id="startYear" class="col-md-6">
-                    0000
+                    -
                 </div>
             </div>
 
@@ -99,8 +99,8 @@
                 <div class="col-md-6">
                     Land:
                 </div>
-                <div id="endYear" class="col-md-6">
-                    0000
+                <div id="landSpeed" class="col-md-6">
+                    -
                 </div>
             </div>
 
@@ -109,13 +109,13 @@
                     Water:
                 </div>
                 <div id="rendered" class="col-md-6">
-                    00
+                    -
                 </div>
             </div>
         </div>
     </div>
     <div class="screenShot">
-        <button id="screen" class="vis-button btn">Screenshot</button>
+        <button id="screen" type="button" class="btn btn-primary">Screenshot</button>
     </div>
 </div>
 

@@ -139,6 +139,10 @@ body {
 }
 #records {
     font-size: 1vw;
+    color: white;
+}
+#records .row {
+    margin-bottom: 4%;
 }
 .nodeInfo {
     position: absolute;
@@ -176,6 +180,7 @@ body {
 #instructionTitle {
     font-size: 2vw;
     color: darkred;
+    font-family: 'maximum_line_speederregular';
 }
 #instructionTitle img {
     width: 15%;
