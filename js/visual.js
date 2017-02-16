@@ -103,6 +103,7 @@ VisApp.prototype.init = function(container) {
     this.guiControls = null;
     this.dataFile = null;
     this.filename = "horror.json";
+    this.currentNode = 0;
     //Always have appearance and data folders to gui
     this.guiAppear = null;
     this.guiData = null;
@@ -168,7 +169,7 @@ VisApp.prototype.createScene = function() {
     var fontLoader = new THREE.FontLoader();
     fontLoader.load("fonts/helvetiker_regular.typeface.json", function(response) {
         _this.font = response;
-        addAxes(_this.axesGroup, response);
+        //addAxes(_this.axesGroup, response);
     });
 
     this.GROUND_DEPTH = 480;
@@ -177,7 +178,7 @@ VisApp.prototype.createScene = function() {
     this.SLIDER_WIDTH = 350;
     this.SLIDER_HEIGHT = 275;
     this.SLIDER_DEPTH = 20;
-    addTimeSlider(this.axesGroup, this.SLIDER_WIDTH, this.SLIDER_HEIGHT, this.SLIDER_DEPTH);
+    //addTimeSlider(this.axesGroup, this.SLIDER_WIDTH, this.SLIDER_HEIGHT, this.SLIDER_DEPTH);
     this.axesGroup.position.z = -this.mapOffset;
     this.scene.add(this.axesGroup);
     this.sliderEnabled = true;
@@ -269,7 +270,7 @@ VisApp.prototype.createGUI = function() {
     var year = 1890;
     this.yearOffset = yearOffset;
     this.year = year;
-    this.yearScale = 4;
+    this.yearScale = 8;
     this.mapOffset = 220;
     var yearSelection = 5;
     this.yearSelection = yearSelection;
@@ -329,17 +330,12 @@ VisApp.prototype.createGUI = function() {
                     _this.onBackgroundColourChanged(appearanceConfig.backgroundColour);
                 }})
             .addGroup({label: 'Data', enable: false})
-                .addSlider(dataConfig, 'year', 'yearRange', {label: 'Year', dp: 0, onChange: function() {
-                    _this.year = dataConfig.year;
-                    _this.onYearChanged(dataConfig.year);
-                }})
-                .addSlider(dataConfig, 'selection', 'selectionRange', {label: 'Selection', dp: 0, onChange: function() {
-                    _this.yearSelection = dataConfig.selection;
-                    _this.onSelectionChanged(dataConfig.selection);
-                }})
-                .addCheckbox(dataConfig, 'showSlider', {label: 'ShowSlider', onChange: function() {
-                    _this.onToggleSlider(dataConfig.showSlider);
-                }});
+                .addButton("Next", function() {
+                    _this.onNextRecord();
+                }, {label: 'Record'})
+                .addButton("Previous", function() {
+                    _this.onPreviousRecord();
+                }, {label: 'Record'})
     });
 };
 
@@ -401,6 +397,21 @@ VisApp.prototype.onBackgroundColourChanged = function(value) {
     this.renderer.setClearColor(value, 1.0);
 };
 
+VisApp.prototype.onNextRecord = function() {
+    var numNodes = this.visNodes.length;
+    if(this.currentNode + 1 === numNodes) return;
+    this.visNodes[this.currentNode].setTransparency(true);
+    ++this.currentNode;
+    this.visNodes[this.currentNode].setTransparency(false);
+};
+
+VisApp.prototype.onPreviousRecord = function() {
+    if(this.currentNode === 0) return;
+    this.visNodes[this.currentNode].setTransparency(true);
+    --this.currentNode;
+    this.visNodes[this.currentNode].setTransparency(false);
+};
+
 VisApp.prototype.onYearChanged = function(year) {
     var slider = this.scene.getObjectByName('groupSlider', true);
     if(slider) {
@@ -427,7 +438,16 @@ VisApp.prototype.onToggleSlider = function(status) {
 
 VisApp.prototype.updateInfoPanel = function() {
     $('#currentYear').html(this.year);
-
+    //Get data fo this year
+    var i, node, maxSpeed = 0, numNodes = this.visNodes.length;
+    for(i=0; i<numNodes; ++i) {
+        node = this.visNodes[i];
+        if(node.getYear() === this.year) {
+            if(node.getSpeed() > maxSpeed) {
+                $('#landSpeed').html(Math.round(node.getSpeed()));
+            }
+        }
+    }
 };
 
 VisApp.prototype.styleChanged = function(value) {
@@ -452,10 +472,11 @@ VisApp.prototype.reDrawNodes = function() {
     for(i=0; i<numNodes; ++i) {
         node = this.visNodes[i];
         nodeYear = node.getYear();
-        if(nodeYear >= yearMin && nodeYear <= yearMax) {
-            node.setVisibility(true);
+        node.setVisibility(true);
+        if(nodeYear === this.year) {
+            node.setTransparency(false);
         } else {
-            node.setVisibility(false);
+            node.setTransparency(true);
         }
     }
 };
@@ -1093,7 +1114,6 @@ function addTimeSlider(group, width, height, depth) {
 var FRONT= 0, RIGHT= 1, LEFT= 2, TOP=3;
 $(document).ready(function() {
     //Initialise app
-    //skel.init();
     var container = document.getElementById("WebGL-output");
     var app = new VisApp();
     app.init(container);

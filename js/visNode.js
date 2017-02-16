@@ -11,7 +11,8 @@ var VisNode = function() {
         defaultColour: 0x0000ff
     };
     this.nodeGeometry = new THREE.SphereBufferGeometry(geomConfig.nodeRadius, geomConfig.nodeWidthSegments, geomConfig.nodeHeightSegments);
-    this.nodeMaterial = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour});
+    this.nodeMaterial = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour} );
+    this.nodeMaterialTransparent = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour, transparent: true, opacity: 0.25} );
     this.nodeXPos = 0;
     this.yearOffset = 0;
     this.yearScale = 4;
@@ -20,7 +21,7 @@ var VisNode = function() {
     this.labelPosition = new THREE.Vector3();
     this.geomPosition = new THREE.Vector3();
     this.alignment = 3;
-    this.textColour =  new THREE.LineBasicMaterial({color: 0xffff00});
+    this.textColour =  new THREE.LineBasicMaterial( {color: 0xffff00} );
     this.labelScale = new THREE.Vector3(100, 50, 1);
 };
 
@@ -93,8 +94,14 @@ VisNode.prototype = {
         this.label.position.y += this.alignment;
     },
 
-    setVisibility: function(status) {
-        this.nodeGroup.visible = status;
+    setVisibility: function(groupStatus) {
+        this.nodeGroup.visible = groupStatus;
+    },
+
+    setTransparency: function(transparency) {
+        this.nodeMesh.material = transparency ? this.nodeMaterialTransparent : this.nodeMaterial;
+        this.label.material.opacity = transparency ? 0.1 : 1.0;
+        this.label.material.needsUpdate = true;
     }
 };
 
