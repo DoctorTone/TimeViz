@@ -4,13 +4,14 @@
 
 function getDuplicates(arr, xAxis, yAxis) {
     //Get frequency of required members
-    var dupes = [];
-    for(var i=0; i<arr.length; ++i) {
-        var item = arr[i];
-        for(var j=0; j<arr.length; ++j) {
+    let dupes = [];
+    let i, j, item, currentItem;
+    for(i=0; i<arr.length; ++i) {
+        item = arr[i];
+        for(j=0; j<arr.length; ++j) {
             if(i == j) continue;
 
-            var currentItem = arr[j];
+            currentItem = arr[j];
             if(item[xAxis] == currentItem[xAxis] &&
                     item[yAxis] == currentItem[yAxis]) {
                 dupes.push(item[xAxis]);
@@ -22,10 +23,11 @@ function getDuplicates(arr, xAxis, yAxis) {
     if(dupes.length == 0) return null;
 
     //Convert array to object
-    var frequency = {};
-    for(var i=0; i<dupes.length; i+=2) {
-        var key1 = dupes[i];
-        var key2 = dupes[i+1];
+    let frequency = {};
+    let key1, key2;
+    for(i=0; i<dupes.length; i+=2) {
+        key1 = dupes[i];
+        key2 = dupes[i+1];
         if(!(key1 in frequency)) {
             frequency[key1] = {};
             frequency[key1][key2] = 1;
