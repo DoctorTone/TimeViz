@@ -13,7 +13,6 @@ var VisNode = function() {
     this.nodeGeometry = new THREE.SphereBufferGeometry(geomConfig.nodeRadius, geomConfig.nodeWidthSegments, geomConfig.nodeHeightSegments);
     this.nodeMaterial = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour} );
     this.nodeMaterialTransparent = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour, transparent: true, opacity: 0.25} );
-    this.nodeXPos = 0;
     this.yearOffset = 0;
     this.yearScale = 4;
     this.mapOffset = 0;
@@ -33,6 +32,7 @@ VisNode.prototype = {
         this.driver = info.Driver;
         this.vehicle = info.Vehicle;
         this.speed = info.Speed;
+        this.nodeXPos = info.xPos;
 
         //Geometry for this node
         this.nodeGroup = new THREE.Object3D();

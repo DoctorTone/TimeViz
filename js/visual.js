@@ -207,23 +207,36 @@ VisApp.prototype.createScene = function() {
 
 VisApp.prototype.addSceneContents = function() {
     //Create a node for each data item
+    const X_INC = 150;
     this.visNodes = [];
-    var landNodeGroup = new THREE.Object3D();
-    landNodeGroup.name = "landRecords";
-    this.scene.add(landNodeGroup);
-    var numNodes = this.data.length;
-    var i, visNode, info;
-
-    for(i=0; i<numNodes; ++i) {
-        visNode = new VisNode();
-        this.visNodes.push(visNode);
-        info = this.data[i];
-        visNode.init(info);
-        visNode.setBounds(this.yearOffset, this.mapOffset, this.yearScale);
-        visNode.createGeometry();
-        landNodeGroup.add(visNode.getNode());
+    let nodeGroups = [];
+    let groupNodeNames = ['landRecords', 'airRecords', 'waterRecords'];
+    let group, nodeGroup, numGroups = groupNodeNames.length;
+    for(group=0; group<numGroups; ++group) {
+        nodeGroup = new THREE.Object3D();
+        nodeGroup.name = groupNodeNames[group];
+        this.scene.add(nodeGroup);
+        nodeGroups.push(nodeGroup);
     }
-    this.landNodeGroup = landNodeGroup;
+    let numSets = this.data.length;
+    let numNodes;
+    let i,j, visNode, info, currentDataSet;
+
+    for(j=0; j<numSets; ++j) {
+        currentDataSet = this.data[j];
+        numNodes = currentDataSet.length;
+        for(i=0; i<numNodes; ++i) {
+            visNode = new VisNode();
+            this.visNodes.push(visNode);
+            info = currentDataSet[i];
+            info.xPos = j * X_INC;
+            visNode.init(info);
+            visNode.setBounds(this.yearOffset, this.mapOffset, this.yearScale);
+            visNode.createGeometry();
+            nodeGroups[j].add(visNode.getNode());
+        }
+    }
+
     this.reDrawNodes();
 };
 
