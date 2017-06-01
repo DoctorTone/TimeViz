@@ -115,6 +115,26 @@
 	{"Date": "July 7", "Year": 1962, "Location": "USSR", "Driver": "Col. Georgi Mosolov", "Vehicle": "YMikoyan Gurevich Ye-166", "Speed": 1665.9},
 	{"Date": "May 1", "Year": 1965, "Location": "Edwards AFB, US", "Driver": "Robert L. Stephens and Daniel Andre", "Vehicle": "Lockheed YF-12A", "Speed": 2070.1},
 	{"Date": "July 28", "Year": 1976, "Location": "Beale AFB, US", "Driver": "Capt. Eldon W. Joersz and Maj. George T. Morgan", "Vehicle": "Lockheed SR-71 Blackbird #61-7958", "Speed": 2193.2}
+],
+[
+	{"Date": "September 19", "Year": 1919, "Location": "Bras d'Or Lake", "Driver": "Casey Baldwin", "Vehicle": "HD-4", "Speed": 70.86},
+	{"Date": "September 15", "Year": 1920, "Location": "Detroit River", "Driver": "Gar Wood", "Vehicle": "Miss America", "Speed": 74.87},
+	{"Date": "September 6", "Year": 1921, "Location": "Detroit River", "Driver": "Gar Wood", "Vehicle": "Miss America II", "Speed": 80.567 },
+	{"Date": "November 10", "Year": 1924, "Location": "River Seine", "Driver": "Jules Fisher", "Vehicle": "Farman Hydroglider", "Speed": 87.392},
+	{"Date": "September 4", "Year": 1928, "Location": "Detroit River", "Driver": "George Wood", "Vehicle": "Miss America II", "Speed": 92.838},
+	{"Date": "March 23", "Year": 1929, "Location": "Indian Creek", "Driver": "Gar Wood", "Vehicle": "Miss America VII", "Speed": 93.123},
+	{"Date": "June 13", "Year": 1930, "Location": "Windermere", "Driver": "Henry Segrave", "Vehicle": "Miss England II", "Speed": 98.760},
+	{"Date": "March 20", "Year": 1931, "Location": "Indian Creek", "Driver": "Gar Wood", "Vehicle": "Miss America IX", "Speed": 102.256},
+	{"Date": "April 15", "Year": 1931, "Location": "Paraná River", "Driver": "Kaye Don", "Vehicle": "Miss England II", "Speed": 103.49},
+	{"Date": "July 31", "Year": 1931, "Location": "Lake Garda", "Driver": "Kaye Don", "Vehicle": "Miss England II", "Speed": 110.223},
+	{"Date": "February 5", "Year": 1932, "Location": "Indian Creek", "Driver": "Gar Wood", "Vehicle": "Miss America IX", "Speed": 111.712},
+	{"Date": "July 18", "Year": 1932, "Location": "Loch Lomond", "Driver": "Kaye Don", "Vehicle": "Miss England III", "Speed": 117.0},
+	{"Date": "July 18", "Year": 1932, "Location": "Loch Lomond", "Driver": "Kaye Don", "Vehicle": "Miss England II", "Speed": 119.81},
+	{"Date": "September 20", "Year": 1932, "Location": "St. Clair River", "Driver": "Gar Wood", "Vehicle": "Miss America X", "Speed": 124.86},
+	{"Date": "September 1", "Year": 1937, "Location": "Lake Maggiore", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K3", "Speed": 126.32},
+	{"Date": "September 2", "Year": 1937, "Location": "Lake Maggiore", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K3", "Speed": 129.50},
+	{"Date": "September 17", "Year": 1938, "Location": "Hallwilersee", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K3", "Speed": 130.91},
+	{"Date": "August 19", "Year": 1939, "Location": "Coniston Water", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K4", "Speed": 141.74}
 
 ]
 ]
