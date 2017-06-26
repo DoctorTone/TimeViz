@@ -134,7 +134,18 @@
 	{"Date": "September 1", "Year": 1937, "Location": "Lake Maggiore", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K3", "Speed": 126.32},
 	{"Date": "September 2", "Year": 1937, "Location": "Lake Maggiore", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K3", "Speed": 129.50},
 	{"Date": "September 17", "Year": 1938, "Location": "Hallwilersee", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K3", "Speed": 130.91},
-	{"Date": "August 19", "Year": 1939, "Location": "Coniston Water", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K4", "Speed": 141.74}
-
+	{"Date": "August 19", "Year": 1939, "Location": "Coniston Water", "Driver": "Malcolm Campbell", "Vehicle": "Blue Bird K4", "Speed": 141.74},
+	{"Date": "June 26", "Year": 1950, "Location": "Lake Washington", "Driver": "Stanley Sayres, Ted O. Jones", "Vehicle": "Slo-Mo-Shun IV", "Speed": 160.323},
+	{"Date": "July 7", "Year": 1952, "Location": "Lake Washington", "Driver": "Stanley Sayres, Ted O. Jones", "Vehicle": "Slo-Mo-Shun IV", "Speed": 178.497},
+	{"Date": "July 23", "Year": 1955, "Location": "Ullswater", "Driver": "Donald Campbell", "Vehicle": "Blue Bird K7", "Speed": 202.32},
+	{"Date": "November 16", "Year": 1955, "Location": "Lake Mead", "Driver": "Donald Campbell", "Vehicle": "Blue Bird K7", "Speed": 216.20},
+	{"Date": "September 19", "Year": 1956, "Location": "Coniston Water", "Driver": "Donald Campbell", "Vehicle": "Bluebird K7", "Speed": 225.63},
+	{"Date": "November 7", "Year": 1957, "Location": "Coniston Water", "Driver": "Donald Campbell", "Vehicle": "Blue Bird K7", "Speed": 239.07},
+	{"Date": "November 10", "Year": 1958, "Location": "Coniston Water", "Driver": "Donald Campbell", "Vehicle": "Blue Bird K7", "Speed": 248.62},
+	{"Date": "May 14", "Year": 1959, "Location": "Coniston Water", "Driver": "Donald Campbell", "Vehicle": "Bluebird K7", "Speed": 260.35},
+	{"Date": "December 31", "Year": 1964, "Location": "Lake Dumbleyung", "Driver": "Donald Campbell", "Vehicle": "Blue Bird K7", "Speed": 276.33},
+	{"Date": "June 30", "Year": 1967, "Location": "Lake Guntersville", "Driver": "Lee Taylor", "Vehicle": "Hustler", "Speed": 285.22},
+	{"Date": "November 20", "Year": 1977, "Location": "Blowering Dam", "Driver": "Ken Warby", "Vehicle": "Spirit of Australia", "Speed": 288.60},
+	{"Date": "October 8", "Year": 1978, "Location": "Blowering Dam", "Driver": "Ken Warby", "Vehicle": "Spirit of Australia", "Speed": 317.596}
 ]
 ]

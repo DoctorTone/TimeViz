@@ -174,8 +174,8 @@ VisApp.prototype.createScene = function() {
         //addAxes(_this.axesGroup, response);
     });
 
-    this.GROUND_DEPTH = 480;
-    this.GROUND_WIDTH = 360;
+    this.GROUND_DEPTH = 960;
+    this.GROUND_WIDTH = 720;
     addGroundPlane(this.scene, this.GROUND_WIDTH, this.GROUND_DEPTH);
     this.SLIDER_WIDTH = 350;
     this.SLIDER_HEIGHT = 275;
@@ -1093,7 +1093,7 @@ function addGroundPlane(scene, width, height) {
 
     // rotate and position the plane
     plane.rotation.x=-0.5*Math.PI;
-    plane.position.set(width/2 - overlap, 0, 0);
+    //plane.position.set(width/2 - overlap, 0, 0);
 
     scene.add(plane);
 
@@ -1102,7 +1102,7 @@ function addGroundPlane(scene, width, height) {
     planeMaterial = new THREE.MeshLambertMaterial({color: 0x16283c});
     plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x=-0.5*Math.PI;
-    plane.position.set(width/2 - overlap, -1, 0);
+    //plane.position.set(width/2 - overlap, -1, 0);
 
     //Give it a name
     plane.name = 'ground';
