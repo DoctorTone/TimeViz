@@ -82,7 +82,7 @@ BaseApp.prototype.createScene = function() {
 };
 
 BaseApp.prototype.createCamera = function() {
-    const CAM_X = 200, CAM_Y = 110, CAM_Z = 260;
+    const CAM_X = 750, CAM_Y = 350, CAM_Z = 875;
     const NEAR_PLANE = 0.1, FAR_PLANE = 10000;
     this.defaultCamPos = new THREE.Vector3(CAM_X, CAM_Y, CAM_Z);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, NEAR_PLANE, FAR_PLANE );
@@ -103,7 +103,7 @@ BaseApp.prototype.createControls = function() {
 
     this.controls.keys = [ 65, 83, 68 ];
 
-    const LOOK_X = 170, LOOK_Y = 90, LOOK_Z = 0;
+    const LOOK_X = -85, LOOK_Y = 275, LOOK_Z = 120;
     let lookAt = new THREE.Vector3(LOOK_X, LOOK_Y, LOOK_Z);
     this.controls.setLookAt(lookAt);
 };

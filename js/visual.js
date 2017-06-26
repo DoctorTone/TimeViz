@@ -164,18 +164,11 @@ VisApp.prototype.createScene = function() {
     //Init base createsScene
     BaseApp.prototype.createScene.call(this);
 
-    var _this = this;
-
     this.axesGroup = new THREE.Object3D();
     this.axesGroup.name = "groupSlider";
-    var fontLoader = new THREE.FontLoader();
-    fontLoader.load("fonts/helvetiker_regular.typeface.json", function(response) {
-        _this.font = response;
-        //addAxes(_this.axesGroup, response);
-    });
 
-    this.GROUND_DEPTH = 960;
-    this.GROUND_WIDTH = 720;
+    this.GROUND_DEPTH = 1600;
+    this.GROUND_WIDTH = 1200;
     addGroundPlane(this.scene, this.GROUND_WIDTH, this.GROUND_DEPTH);
     this.SLIDER_WIDTH = 350;
     this.SLIDER_HEIGHT = 275;
@@ -186,20 +179,19 @@ VisApp.prototype.createScene = function() {
     this.sliderEnabled = true;
 
     //Load json data
-    var dataLoad = new dataLoader();
-    var dataParser = function(data) {
-        _this.data = data;
-        _this.addSceneContents();
-    };
+    let dataLoad = new dataLoader();
 
-    dataLoad.load("data/speed.json", dataParser);
+    dataLoad.load("data/speed.json", data => {
+        this.data = data;
+        this.addSceneContents();
+    });
 
     //Light box
-    var boxGeom = new THREE.BoxGeometry(2, 2, 2);
-    var boxMat = new THREE.MeshBasicMaterial( {color: 0xffffff});
-    var box = new THREE.Mesh(boxGeom, boxMat);
+    let boxGeom = new THREE.BoxGeometry(2, 2, 2);
+    let boxMat = new THREE.MeshBasicMaterial( {color: 0xffffff});
+    let box = new THREE.Mesh(boxGeom, boxMat);
     box.name = 'lightBox';
-    var light = this.scene.getObjectByName('PointLight', true);
+    let light = this.scene.getObjectByName('PointLight', true);
     if(light) {
         box.position.copy(light.position);
     }
@@ -210,6 +202,7 @@ VisApp.prototype.createScene = function() {
 VisApp.prototype.addSceneContents = function() {
     //Create a node for each data item
     const X_INC = 150;
+    const X_START = 150;
     this.visNodes = [];
     let nodeGroups = [];
     let groupNodeNames = ['landRecords', 'airRecords', 'waterRecords'];
@@ -231,7 +224,7 @@ VisApp.prototype.addSceneContents = function() {
             visNode = new VisNode();
             this.visNodes.push(visNode);
             info = currentDataSet[i];
-            info.xPos = j * X_INC;
+            info.xPos = (j * X_INC) - X_START;
             visNode.init(info);
             visNode.setBounds(this.yearOffset, this.mapOffset, this.yearScale);
             visNode.createGeometry();
@@ -296,8 +289,8 @@ VisApp.prototype.createGUI = function() {
             labelWidthRange : [50,300],
             labelHeight: 50,
             labelHeightRange: [30, 250],
-            speedScale: 1,
-            speedScaleRange: [1, 10],
+            speedScale: 0.7,
+            speedScaleRange: [0.1, 10],
             renderStyles: ["Cull", "Colour", "Transparent"],
             nodeColour: '#0000ff',
             sliderColour: '#5f7c9d',
