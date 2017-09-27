@@ -247,7 +247,7 @@ class VisApp extends BaseApp {
     }
 
     onGroundColourChanged(colour) {
-        let ground = this.scene.getObjectByName('ground');
+        let ground = this.getObjectByName('ground');
         if(ground) {
             ground.material.color.setStyle(colour);
         }

@@ -186,3 +186,8 @@ body {
 .instructionText img {
     width: 50%;
 }
+#selectorContainer {
+    right: 1%;
+    bottom: 20%;
+    width: 5%;
+}
