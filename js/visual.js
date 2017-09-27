@@ -1,5 +1,6 @@
 
-var X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
+const X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
+const LAND=0, AIR=1, WATER=2;
 
 class VisApp extends BaseApp {
     constructor() {
@@ -12,7 +13,10 @@ class VisApp extends BaseApp {
         this.nodesInSlider = 0;
         this.guiControls = null;
         this.dataFile = null;
-        this.currentNode = 0;
+        this.currentLandNode = 0;
+        this.currentAirNode = 0;
+        this.currentWaterNode = 0;
+        this.currentDataset = LAND;
         //Always have appearance and data folders to gui
         this.guiAppear = null;
         this.guiData = null;
@@ -95,11 +99,13 @@ class VisApp extends BaseApp {
         let numSets = this.data.length;
         let numNodes;
         let i,j, visNode, info, currentDataSet;
+        let startingNodes = [];
 
         for(j=0; j<numSets; ++j) {
             currentDataSet = this.data[j];
             numNodes = currentDataSet.length;
             for(i=0; i<numNodes; ++i) {
+                i === 0 ? startingNodes.push(this.visNodes.length) : false;
                 visNode = new VisNode();
                 this.visNodes.push(visNode);
                 info = currentDataSet[i];
@@ -111,7 +117,11 @@ class VisApp extends BaseApp {
             }
         }
 
-        this.reDrawNodes();
+        for(let i=0, numNodes=startingNodes.length; i<numNodes; ++i) {
+            this.visNodes[startingNodes[i]].select(true);
+        }
+
+        //this.reDrawNodes();
     }
 
     outlineNode(name) {
@@ -164,10 +174,10 @@ class VisApp extends BaseApp {
         let _this = this;
         window.addEventListener('load',function(){
             let appearanceConfig = {
-                labelWidth: 100,
-                labelWidthRange : [50,300],
-                labelHeight: 50,
-                labelHeightRange: [30, 250],
+                labelWidth: 300,
+                labelWidthRange : [250,500],
+                labelHeight: 125,
+                labelHeightRange: [100, 350],
                 speedScale: 0.7,
                 speedScaleRange: [0.1, 10],
                 renderStyles: ["Cull", "Colour", "Transparent"],

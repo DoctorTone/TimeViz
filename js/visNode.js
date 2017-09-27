@@ -59,7 +59,7 @@ VisNode.prototype = {
         var limit = 20;
         this.labelPosition.copy(this.nodeMesh.position);
         this.labelPosition.y += this.alignment;
-        return spriteManager.create(this.vehicle, limit, this.textColour, this.labelPosition, this.labelScale, 32, 1, true, true);
+        return spriteManager.create(this.vehicle, limit, this.textColour, this.labelPosition, this.labelScale, 32, 1, false, true);
     },
 
     updateLabelWidth: function(scale) {
@@ -102,6 +102,10 @@ VisNode.prototype = {
         this.nodeMesh.material = transparency ? this.nodeMaterialTransparent : this.nodeMaterial;
         this.label.material.opacity = transparency ? 0.1 : 1.0;
         this.label.material.needsUpdate = true;
+    },
+
+    select: function(state) {
+        this.label.visible = state;
     }
 };
 
