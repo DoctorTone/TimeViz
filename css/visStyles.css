@@ -44,12 +44,12 @@ body {
     font-size: 1.4vw;
 }
 #instructions {
-    top: 6%;
+    bottom: 5%;
     left: 5%;
 }
 #camControls {
-    top: 15%;
-    left: -1%;
+    top: 5%;
+    left: 0%;
 }
 #camControls img {
     width: 50%;
