@@ -1,86 +1,3 @@
-/**
- * Created by atg on 14/05/2014.
- */
-
-function getDuplicates(arr, xAxis, yAxis) {
-    //Get frequency of required members
-    let dupes = [];
-    let i, j, item, currentItem;
-    for(i=0; i<arr.length; ++i) {
-        item = arr[i];
-        for(j=0; j<arr.length; ++j) {
-            if(i == j) continue;
-
-            currentItem = arr[j];
-            if(item[xAxis] == currentItem[xAxis] &&
-                    item[yAxis] == currentItem[yAxis]) {
-                dupes.push(item[xAxis]);
-                dupes.push(item[yAxis]);
-            }
-        }
-    }
-
-    if(dupes.length == 0) return null;
-
-    //Convert array to object
-    let frequency = {};
-    let key1, key2;
-    for(i=0; i<dupes.length; i+=2) {
-        key1 = dupes[i];
-        key2 = dupes[i+1];
-        if(!(key1 in frequency)) {
-            frequency[key1] = {};
-            frequency[key1][key2] = 1;
-        }
-        else {
-            ++(frequency[key1][key2]);
-        }
-    }
-
-    return frequency;
-}
-
-function eliminateDuplicates(arr) {
-    var r = [];
-    start: for(var i = 0; i < arr.length; ++i) {
-        for(var x = 0; x < r.length; ++x) {
-            if(r[x]==arr[i]) {
-                continue start;
-            }
-        }
-        r[r.length] = arr[i];
-    }
-    return r;
-}
-
-function eliminateInvalidCells(arr) {
-    //Assume invalid to be empty or undefined values
-    //Assume there are NO duplicates!!!
-    var out=[];
-
-    for(var index=0; index<arr.length; ++index) {
-        if(arr[index] != null && arr[index] != undefined) {
-            out.push(arr[index]);
-        }
-    }
-
-    return out;
-}
-
-function populatePanel(data, left, top) {
-    //Fill in node panel details and display
-    var element = $('#nodePanel');
-    element.show();
-    element.css('top', top-15);
-    element.css('left', left+15);
-
-    for(var key in data) {
-        var item = document.getElementById(key);
-        if (item) {
-            item.innerHTML = data[key];
-        }
-    }
-}
 
 var X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
 
@@ -137,9 +54,9 @@ class VisApp extends BaseApp {
         let planeGeometry = new THREE.PlaneGeometry(width, height, 1, 1);
         let textureLoader = new THREE.TextureLoader();
         let texture = textureLoader.load("images/grid.png");
-        var planeMaterial = new THREE.MeshLambertMaterial({map: texture, transparent: true, opacity: 0.5});
-        var plane = new THREE.Mesh(planeGeometry,planeMaterial);
-        var overlap = 10;
+        let planeMaterial = new THREE.MeshLambertMaterial({map: texture, transparent: true, opacity: 0.5});
+        let plane = new THREE.Mesh(planeGeometry,planeMaterial);
+        let overlap = 10;
 
         // rotate and position the plane
         plane.rotation.x=-0.5*Math.PI;
@@ -204,7 +121,7 @@ class VisApp extends BaseApp {
         if(this.outlineNodeName == name +'outline') return;
 
         //Remove any existing highlighting
-        var node;
+        let node;
         if(this.outlineNodeName) {
             node = this.scene.getObjectByName(this.outlineNodeName);
             if(node) {
@@ -216,9 +133,9 @@ class VisApp extends BaseApp {
         if(name) {
             node = this.scene.getObjectByName(name);
             if (node) {
-                var outlineMat = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.BackSide});
-                var outlineMesh;
-                var outlineGeom;
+                let outlineMat = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.BackSide});
+                let outlineMesh;
+                let outlineGeom;
                 switch (this.guiControls.NodeStyle) {
                     case 'Sphere':
                         outlineGeom = new THREE.SphereGeometry(1, 20, 20);
@@ -236,17 +153,17 @@ class VisApp extends BaseApp {
 
     createGUI() {
         //Create GUI - controlKit
-        var yearOffset = 1890;
-        var year = 1890;
+        let yearOffset = 1890;
+        let year = 1890;
         this.yearOffset = yearOffset;
         this.year = year;
         this.yearScale = 8;
         this.mapOffset = 220;
-        var yearSelection = 5;
+        let yearSelection = 5;
         this.yearSelection = yearSelection;
-        var _this = this;
+        let _this = this;
         window.addEventListener('load',function(){
-            var appearanceConfig = {
+            let appearanceConfig = {
                 labelWidth: 100,
                 labelWidthRange : [50,300],
                 labelHeight: 50,
@@ -260,7 +177,7 @@ class VisApp extends BaseApp {
                 backgroundColour: '#5c5f64'
             };
 
-            var dataConfig = {
+            let dataConfig = {
                 year: year,
                 yearRange: [yearOffset, 2000],
                 selection: yearSelection,
@@ -268,7 +185,7 @@ class VisApp extends BaseApp {
                 showSlider: true
             };
 
-            var controlKit = new ControlKit();
+            let controlKit = new ControlKit();
 
             controlKit.addPanel({width: 250})
                 .addGroup({label: 'Appearance', enable: false})
@@ -311,7 +228,7 @@ class VisApp extends BaseApp {
 
     onLabelScale(axis, scale) {
         //Scale vis node labels
-        var i, numNodes = this.visNodes.length;
+        let i, numNodes = this.visNodes.length;
         switch(axis) {
             case X_AXIS:
                 for(i=0; i<numNodes; ++i) {
@@ -332,21 +249,21 @@ class VisApp extends BaseApp {
     }
 
     onSpeedScale(scale) {
-        var i, numNodes = this.visNodes.length;
+        let i, numNodes = this.visNodes.length;
         for(i=0; i<numNodes; ++i) {
             this.visNodes[i].setSpeedScale(3/scale);
         }
     }
 
     onNodeColourChanged(colour) {
-        var i, numNodes = this.visNodes.length;
+        let i, numNodes = this.visNodes.length;
         for(i=0; i<numNodes; ++i) {
             this.visNodes[i].setColour(colour);
         }
     }
 
     onGroundColourChanged(colour) {
-        var ground = this.scene.getObjectByName('ground');
+        let ground = this.scene.getObjectByName('ground');
         if(ground) {
             ground.material.color.setStyle(colour);
         }
@@ -357,7 +274,7 @@ class VisApp extends BaseApp {
     }
 
     onNextRecord() {
-        var numNodes = this.visNodes.length;
+        let numNodes = this.visNodes.length;
         if(this.currentNode + 1 === numNodes) return;
         this.visNodes[this.currentNode].setTransparency(true);
         ++this.currentNode;
@@ -374,7 +291,7 @@ class VisApp extends BaseApp {
     updateInfoPanel() {
         $('#currentYear').html(this.year);
         //Get data fo this year
-        var i, node, maxSpeed = 0, numNodes = this.visNodes.length;
+        let i, node, maxSpeed = 0, numNodes = this.visNodes.length;
         for(i=0; i<numNodes; ++i) {
             node = this.visNodes[i];
             if(node.getYear() === this.year) {
@@ -386,9 +303,9 @@ class VisApp extends BaseApp {
     }
 
     reDrawNodes() {
-        var i, numNodes = this.visNodes.length;
-        var yearMax = this.year + (this.yearSelection/2), yearMin = this.year - (this.yearSelection/2);
-        var node, nodeYear;
+        let i, numNodes = this.visNodes.length;
+        let yearMax = this.year + (this.yearSelection/2), yearMin = this.year - (this.yearSelection/2);
+        let node, nodeYear;
         for(i=0; i<numNodes; ++i) {
             node = this.visNodes[i];
             nodeYear = node.getYear();
@@ -398,39 +315,6 @@ class VisApp extends BaseApp {
             } else {
                 node.setTransparency(true);
             }
-        }
-    }
-
-    generateLabels(topName, bottomName, position, textColour, labelColour, borderColour, opacity) {
-        var fontSize = this.guiControls.fontSize;
-        var scale = new THREE.Vector3(this.guiControls.fontWidth, this.guiControls.fontHeight, 1);
-        position.top = true;
-        if(textColour != undefined) {
-            spriteManager.setTextColour(textColour);
-        }
-
-        if(labelColour != undefined) {
-            spriteManager.setBackgroundColour(labelColour);
-        }
-
-        if(borderColour != undefined) {
-            spriteManager.setBorderColour(borderColour);
-        }
-
-        if(topName) {
-            var labelTop = spriteManager.create(topName, position, scale, 32, 1, true);
-            //Give sprite a name
-            labelTop.name = "Sprite" + this.spritesRendered++;
-            this.addToScene(labelTop);
-        }
-
-        position.top = false;
-        if(bottomName) {
-            position.y -= (3*scale.y/5);
-            var labelBottom = spriteManager.create(bottomName, position, scale, 32, 1, true);
-            //Give sprite a name
-            labelBottom.name = "Sprite" + this.spritesRendered++;
-            this.addToScene(labelBottom);
         }
     }
 
@@ -458,8 +342,8 @@ class VisApp extends BaseApp {
 const FRONT= 0, RIGHT= 1, LEFT= 2, TOP=3;
 $(document).ready(function() {
     //Initialise app
-    var container = document.getElementById("WebGL-output");
-    var app = new VisApp();
+    let container = document.getElementById("WebGL-output");
+    let app = new VisApp();
     app.init(container);
     app.createGUI();
     app.createScene();
