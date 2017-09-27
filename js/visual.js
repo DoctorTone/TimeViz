@@ -187,7 +187,7 @@ class VisApp extends BaseApp {
 
             let controlKit = new ControlKit();
 
-            controlKit.addPanel({width: 250})
+            controlKit.addPanel({width: 200})
                 .addGroup({label: 'Appearance', enable: false})
                 .addSlider(appearanceConfig,'labelWidth','labelWidthRange',{label: 'LabelWidth', dp: 1, onChange: function() {
                     _this.onLabelScale(X_AXIS, appearanceConfig.labelWidth);
@@ -198,17 +198,8 @@ class VisApp extends BaseApp {
                 .addSlider(appearanceConfig,'speedScale','speedScaleRange',{label: 'SpeedScale', dp: 1, onChange: function() {
                     _this.onSpeedScale(appearanceConfig.speedScale);
                 }})
-                .addSelect(appearanceConfig, 'renderStyles', {
-                    selected: 0,
-                    onChange: function(index) {
-                        _this.onChangeRenderStyle(appearanceConfig.renderStyles[index]);
-                    }
-                })
                 .addColor(appearanceConfig, 'nodeColour', {colorMode: 'hex', onChange: function() {
                     _this.onNodeColourChanged(appearanceConfig.nodeColour);
-                }})
-                .addColor(appearanceConfig, 'sliderColour', {colorMode: 'hex', onChange: function() {
-                    _this.onSliderColourChanged(appearanceConfig.sliderColour);
                 }})
                 .addColor(appearanceConfig, 'groundColour', {colorMode: 'hex', onChange: function() {
                     _this.onGroundColourChanged(appearanceConfig.groundColour);
@@ -216,13 +207,6 @@ class VisApp extends BaseApp {
                 .addColor(appearanceConfig, 'backgroundColour', {colorMode: 'hex', onChange: function() {
                     _this.onBackgroundColourChanged(appearanceConfig.backgroundColour);
                 }})
-                .addGroup({label: 'Data', enable: false})
-                .addButton("Next", function() {
-                    _this.onNextRecord();
-                }, {label: 'Record'})
-                .addButton("Previous", function() {
-                    _this.onPreviousRecord();
-                }, {label: 'Record'})
         });
     }
 

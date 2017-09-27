@@ -112,15 +112,6 @@ body {
     background-color: #004040;
     cursor: pointer;
 }
-.camControls {
-    background-color: rgba(150, 150, 150, 0);
-    color: #7fa5ff;
-    margin-bottom: 5%;
-}
-.camControls button {
-    text-align: center;
-    margin: 3px;
-}
 #camLeft {
     float: right;
 }
