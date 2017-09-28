@@ -99,7 +99,7 @@ class VisApp extends BaseApp {
         let numSets = this.data.length;
         let numNodes;
         let i,j, visNode, info, currentDataSet;
-        let startingNodes = [];
+        let startingNodes = [], endingNodes = [];
 
         for(j=0; j<numSets; ++j) {
             currentDataSet = this.data[j];
@@ -117,11 +117,17 @@ class VisApp extends BaseApp {
             }
         }
 
+        for(let i=0, numNodes=startingNodes.length; i<(numNodes-1); ++i) {
+            endingNodes[i] = startingNodes[i+1];
+        }
+        endingNodes[2] = this.visNodes.length;
+
         for(let i=0, numNodes=startingNodes.length; i<numNodes; ++i) {
             this.visNodes[startingNodes[i]].select(true);
         }
 
         this.startingNodes = startingNodes;
+        this.endingNodes = endingNodes;
     }
 
     outlineNode(name) {
@@ -272,6 +278,8 @@ class VisApp extends BaseApp {
         if(currentNode === undefined) return;
 
         ++currentNode;
+        if(currentNode >= this.endingNodes[this.currentDataset]) return;
+
         let nodeNumber = currentNode + this.startingNodes[this.currentDataset];
 
         this.visNodes[nodeNumber - 1].select(false);
@@ -381,6 +389,26 @@ class VisApp extends BaseApp {
         }
         this.controls.setLookAt(new THREE.Vector3(170, 70, 0));
     }
+
+    changeRecordType(type) {
+        //Set data type
+        switch(type) {
+            case "selectTypeLand":
+                this.currentDataset = LAND;
+                break;
+
+            case "selectTypeAir":
+                this.currentDataset = AIR;
+                break;
+
+            case "selectTypeWater":
+                this.currentDataset = WATER;
+                break;
+
+            default:
+                break;
+        }
+    }
 }
 
 const FRONT= 0, RIGHT= 1, LEFT= 2, TOP=3;
@@ -411,6 +439,10 @@ $(document).ready(function() {
     });
     $('#nextRecord').on("click", () => {
         app.nextRecord();
+    });
+
+    $('[id^="selectType"]').on("change", function() {
+        app.changeRecordType(this.id);
     });
 
     app.run();
