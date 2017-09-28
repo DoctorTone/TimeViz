@@ -8,11 +8,13 @@ var VisNode = function() {
         nodeRadius: 5,
         nodeWidthSegments: 8,
         nodeHeightSegments: 8,
-        defaultColour: 0x0000ff
+        defaultColour: 0x0000ff,
+        selectColour: 0xffff00
     };
     this.nodeGeometry = new THREE.SphereBufferGeometry(geomConfig.nodeRadius, geomConfig.nodeWidthSegments, geomConfig.nodeHeightSegments);
     this.nodeMaterial = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour} );
     this.nodeMaterialTransparent = new THREE.MeshLambertMaterial( {color: geomConfig.defaultColour, transparent: true, opacity: 0.25} );
+    this.nodeMaterialSelected = new THREE.MeshLambertMaterial( {color: geomConfig.selectColour} );
     this.yearOffset = 0;
     this.yearScale = 4;
     this.mapOffset = 0;
@@ -21,7 +23,7 @@ var VisNode = function() {
     this.geomPosition = new THREE.Vector3();
     this.alignment = 3;
     this.textColour =  new THREE.LineBasicMaterial( {color: 0xffff00} );
-    this.labelScale = new THREE.Vector3(100, 50, 1);
+    this.labelScale = new THREE.Vector3(300, 100, 1);
 };
 
 VisNode.prototype = {
@@ -106,6 +108,7 @@ VisNode.prototype = {
 
     select: function(state) {
         this.label.visible = state;
+        this.nodeMesh.material = state ? this.nodeMaterialSelected : this.nodeMaterial;
     }
 };
 

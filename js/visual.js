@@ -121,7 +121,7 @@ class VisApp extends BaseApp {
             this.visNodes[startingNodes[i]].select(true);
         }
 
-        //this.reDrawNodes();
+        this.startingNodes = startingNodes;
     }
 
     outlineNode(name) {
@@ -267,19 +267,69 @@ class VisApp extends BaseApp {
         this.renderer.setClearColor(colour, 1.0);
     }
 
-    onNextRecord() {
-        let numNodes = this.visNodes.length;
-        if(this.currentNode + 1 === numNodes) return;
-        this.visNodes[this.currentNode].setTransparency(true);
-        ++this.currentNode;
-        this.visNodes[this.currentNode].setTransparency(false);
+    nextRecord() {
+        let currentNode = this.getCurrentNode();
+        if(currentNode === undefined) return;
+
+        ++currentNode;
+        let nodeNumber = currentNode + this.startingNodes[this.currentDataset];
+
+        this.visNodes[nodeNumber - 1].select(false);
+        this.visNodes[nodeNumber].select(true);
+        this.setCurrentNode(currentNode);
     }
 
-    onPreviousRecord() {
-        if(this.currentNode === 0) return;
-        this.visNodes[this.currentNode].setTransparency(true);
-        --this.currentNode;
-        this.visNodes[this.currentNode].setTransparency(false);
+    previousRecord() {
+        let currentNode = this.getCurrentNode();
+        if(!currentNode) return;
+
+        --currentNode;
+        let nodeNumber = currentNode + this.startingNodes[this.currentDataset];
+
+        this.visNodes[nodeNumber + 1].select(false);
+        this.visNodes[nodeNumber].select(true);
+        this.setCurrentNode(currentNode);
+    }
+
+    getCurrentNode() {
+        let currentNode;
+        switch(this.currentDataset) {
+            case LAND:
+                currentNode = this.currentLandNode;
+                break;
+
+            case AIR:
+                currentNode = this.currentAirNode;
+                break;
+
+            case WATER:
+                currentNode = this.currentWaterNode;
+                break;
+
+            default:
+                break;
+        }
+
+        return currentNode;
+    }
+
+    setCurrentNode(node) {
+        switch(this.currentDataset) {
+            case LAND:
+                this.currentLandNode = node;
+                break;
+
+            case AIR:
+                this.currentAirNode = node;
+                break;
+
+            case WATER:
+                this.currentWaterNode = node;
+                break;
+
+            default:
+                break;
+        }
     }
 
     updateInfoPanel() {
@@ -354,6 +404,13 @@ $(document).ready(function() {
     });
     $("#camTop").on("click", function(evt) {
         app.changeView(TOP);
+    });
+
+    $('#previousRecord').on("click", () => {
+        app.previousRecord();
+    });
+    $('#nextRecord').on("click", () => {
+        app.nextRecord();
     });
 
     app.run();
