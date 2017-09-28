@@ -1,7 +1,7 @@
 
 const X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
 const LAND=0, AIR=1, WATER=2;
-
+const NUM_VEHICLE_TYPES = 3;
 class VisApp extends BaseApp {
     constructor() {
         super();
@@ -118,13 +118,15 @@ class VisApp extends BaseApp {
         }
 
         for(let i=0, numNodes=startingNodes.length; i<(numNodes-1); ++i) {
-            endingNodes[i] = startingNodes[i+1];
+            endingNodes[i] = startingNodes[i+1] - startingNodes[i];
         }
-        endingNodes[2] = this.visNodes.length;
+        endingNodes[2] = this.visNodes.length - startingNodes[2];
 
         for(let i=0, numNodes=startingNodes.length; i<numNodes; ++i) {
             this.visNodes[startingNodes[i]].select(true);
         }
+
+        this.updateInfoPanel();
 
         this.startingNodes = startingNodes;
         this.endingNodes = endingNodes;
@@ -285,6 +287,7 @@ class VisApp extends BaseApp {
         this.visNodes[nodeNumber - 1].select(false);
         this.visNodes[nodeNumber].select(true);
         this.setCurrentNode(currentNode);
+        this.updateInfoPanel();
     }
 
     previousRecord() {
@@ -297,6 +300,7 @@ class VisApp extends BaseApp {
         this.visNodes[nodeNumber + 1].select(false);
         this.visNodes[nodeNumber].select(true);
         this.setCurrentNode(currentNode);
+        this.updateInfoPanel();
     }
 
     getCurrentNode() {
@@ -337,20 +341,6 @@ class VisApp extends BaseApp {
 
             default:
                 break;
-        }
-    }
-
-    updateInfoPanel() {
-        $('#currentYear').html(this.year);
-        //Get data fo this year
-        let i, node, maxSpeed = 0, numNodes = this.visNodes.length;
-        for(i=0; i<numNodes; ++i) {
-            node = this.visNodes[i];
-            if(node.getYear() === this.year) {
-                if(node.getSpeed() > maxSpeed) {
-                    $('#landSpeed').html(Math.round(node.getSpeed()));
-                }
-            }
         }
     }
 
@@ -407,6 +397,18 @@ class VisApp extends BaseApp {
 
             default:
                 break;
+        }
+    }
+
+    updateInfoPanel() {
+        let dataSet, vehicleData;
+        let elemPrefix = ["land", "air", "water"];
+        let currentNodes = [this.currentLandNode, this.currentAirNode, this.currentWaterNode];
+        for(let i=0; i<NUM_VEHICLE_TYPES; ++i) {
+            dataSet = this.data[i];
+            vehicleData = dataSet[currentNodes[i]];
+            $('#' + elemPrefix[i] + 'Speed').html(vehicleData.Speed);
+            $('#' + elemPrefix[i] + 'Year').html(vehicleData.Year);
         }
     }
 }
