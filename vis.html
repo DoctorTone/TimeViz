@@ -2,6 +2,9 @@
 <html>
 <head lang="en">
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Speed Visualiser</title>
 
     <!-- build:css css/visStyles.min.css-->
@@ -69,44 +72,33 @@
     <div id="infoText">
         <span class="label label-warning">Information</span>
     </div>
-    <div id="records">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <span class="label label-default">Year :</span>
-                </div>
-                <div class="col-md-6">
-                    <span id="currentYear" class="label label-default">1890</span>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    Air:
-                </div>
-                <div id="startYear" class="col-md-6">
-                    -
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    Land:
-                </div>
-                <div id="landSpeed" class="col-md-6">
-                    -
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    Water:
-                </div>
-                <div id="rendered" class="col-md-6">
-                    -
-                </div>
-            </div>
-        </div>
+    <div id="infoData">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Speed</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Land</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Air</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Water</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

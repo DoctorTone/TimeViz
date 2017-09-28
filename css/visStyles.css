@@ -56,8 +56,9 @@ body {
     padding: 2px;
 }
 #information {
-    top: 30%;
-    left: 3%;
+    top: 20%;
+    left: 5%;
+    width: 10%;
 }
 .hidden {
     display: none;
