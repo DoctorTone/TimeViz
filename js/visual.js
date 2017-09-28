@@ -39,8 +39,8 @@ class VisApp extends BaseApp {
     createScene() {
         super.createScene();
 
-        this.GROUND_WIDTH = 1600;
-        this.GROUND_HEIGHT = 1200;
+        this.GROUND_WIDTH = 16000;
+        this.GROUND_HEIGHT = 12000;
         this.addGroundPlane();
 
         //Load json data
@@ -84,8 +84,8 @@ class VisApp extends BaseApp {
 
     addSceneContents() {
         //Create a node for each data item
-        const X_INC = 150;
-        const X_START = 150;
+        const X_INC = 500;
+        const X_START = 500;
         this.visNodes = [];
         let nodeGroups = [];
         let groupNodeNames = ['landRecords', 'airRecords', 'waterRecords'];
@@ -132,43 +132,6 @@ class VisApp extends BaseApp {
         this.endingNodes = endingNodes;
     }
 
-    outlineNode(name) {
-        //Generate or remove highlight around given node
-
-        //Ensure we aren't clicking same node twice
-        if(this.outlineNodeName == name +'outline') return;
-
-        //Remove any existing highlighting
-        let node;
-        if(this.outlineNodeName) {
-            node = this.scene.getObjectByName(this.outlineNodeName);
-            if(node) {
-                this.scene.remove(node);
-                this.outlineNodeName = null;
-            }
-        }
-
-        if(name) {
-            node = this.scene.getObjectByName(name);
-            if (node) {
-                let outlineMat = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.BackSide});
-                let outlineMesh;
-                let outlineGeom;
-                switch (this.guiControls.NodeStyle) {
-                    case 'Sphere':
-                        outlineGeom = new THREE.SphereGeometry(1, 20, 20);
-                        outlineMesh = new THREE.Mesh(outlineGeom, outlineMat);
-                        outlineMesh.name = name + 'outline';
-                        this.outlineNodeName = outlineMesh.name;
-                        break;
-                }
-                outlineMesh.position = node.position;
-                outlineMesh.scale.multiplyScalar(1.2);
-                this.addToScene(outlineMesh);
-            }
-        }
-    }
-
     createGUI() {
         //Create GUI - controlKit
         let yearOffset = 1890;
@@ -188,6 +151,8 @@ class VisApp extends BaseApp {
                 labelHeightRange: [100, 350],
                 speedScale: 0.7,
                 speedScaleRange: [0.1, 10],
+                nodeScale: 1.0,
+                nodeScaleRange: [0.5, 5],
                 renderStyles: ["Cull", "Colour", "Transparent"],
                 nodeColour: '#0000ff',
                 sliderColour: '#5f7c9d',
@@ -215,6 +180,9 @@ class VisApp extends BaseApp {
                 }})
                 .addSlider(appearanceConfig,'speedScale','speedScaleRange',{label: 'SpeedScale', dp: 1, onChange: function() {
                     _this.onSpeedScale(appearanceConfig.speedScale);
+                }})
+                .addSlider(appearanceConfig, 'nodeScale', 'nodeScaleRange', {label: 'NodeScale', dp: 1, onChange: function() {
+                    _this.onNodeScaleChanged(appearanceConfig.nodeScale);
                 }})
                 .addColor(appearanceConfig, 'nodeColour', {colorMode: 'hex', onChange: function() {
                     _this.onNodeColourChanged(appearanceConfig.nodeColour);
@@ -261,6 +229,13 @@ class VisApp extends BaseApp {
         let i, numNodes = this.visNodes.length;
         for(i=0; i<numNodes; ++i) {
             this.visNodes[i].setColour(colour);
+        }
+    }
+
+    onNodeScaleChanged(scale) {
+        let i, numNodes = this.visNodes.length;
+        for(i=0; i<numNodes; ++i) {
+            this.visNodes[i].setNodeScale(scale);
         }
     }
 

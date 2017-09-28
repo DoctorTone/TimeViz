@@ -96,6 +96,10 @@ VisNode.prototype = {
         this.label.position.y += this.alignment;
     },
 
+    setNodeScale: function(scale) {
+        this.nodeMesh.scale.set(scale, scale, scale);
+    },
+
     setVisibility: function(groupStatus) {
         this.nodeGroup.visible = groupStatus;
     },
