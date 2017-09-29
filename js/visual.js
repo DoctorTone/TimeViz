@@ -17,7 +17,10 @@ let saveConfig = {
     Width: appearanceConfig.Width,
     Height: appearanceConfig.Height,
     speedScale: appearanceConfig.speedScale,
-    nodeScale: appearanceConfig.nodeScale
+    nodeScale: appearanceConfig.nodeScale,
+    Node: appearanceConfig.Node,
+    Ground: appearanceConfig.Ground,
+    Back: appearanceConfig.Back
 };
 
 const X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
@@ -63,6 +66,10 @@ class VisApp extends BaseApp {
                     this.setGUI(prop,value);
                 }
             }
+            let colour = localStorage.getItem(this.baseName + "Back");
+            if(colour) {
+                this.renderer.setClearColor(colour, 1.0);
+            }
         }
     }
 
@@ -104,7 +111,7 @@ class VisApp extends BaseApp {
 
         //Second plane
         planeGeometry = new THREE.PlaneGeometry(width, height, 1, 1);
-        planeMaterial = new THREE.MeshLambertMaterial({color: 0x16283c});
+        planeMaterial = new THREE.MeshLambertMaterial({color: appearanceConfig.Ground});
         plane = new THREE.Mesh(planeGeometry, planeMaterial);
         plane.rotation.x=-0.5*Math.PI;
         //plane.position.set(width/2 - overlap, -1, 0);
@@ -148,6 +155,7 @@ class VisApp extends BaseApp {
                 info.labelScaleY = appearanceConfig.Height;
                 info.speedScale = 1/appearanceConfig.speedScale;
                 info.nodeScale = appearanceConfig.nodeScale;
+                info.nodeColour = appearanceConfig.Node;
                 visNode.init(info);
                 visNode.setBounds(this.yearOffset, this.mapOffset, this.yearScale);
                 visNode.createGeometry();

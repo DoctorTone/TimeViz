@@ -41,6 +41,8 @@ VisNode.prototype = {
         //Geometry for this node
         this.nodeGroup = new THREE.Object3D();
         this.labelScale = new THREE.Vector3(info.labelScaleX, info.labelScaleY, 1);
+        this.nodeMaterial.color.setStyle(info.nodeColour);
+        this.nodeMaterial.needsUpdate = true;
 
         return true;
     },
