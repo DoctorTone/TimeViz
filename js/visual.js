@@ -1,4 +1,25 @@
 
+let appearanceConfig = {
+    Width: 300,
+    labelWidthRange : [250,500],
+    Height: 125,
+    labelHeightRange: [100, 350],
+    speedScale: 0.1,
+    speedScaleRange: [0.1, 1],
+    nodeScale: 1.0,
+    nodeScaleRange: [0.5, 5],
+    Node: '#0000ff',
+    Ground: '#16283c',
+    Back: '#5c5f64'
+};
+
+let saveConfig = {
+    Width: appearanceConfig.Width,
+    Height: appearanceConfig.Height,
+    speedScale: appearanceConfig.speedScale,
+    nodeScale: appearanceConfig.nodeScale
+};
+
 const X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
 const LAND=0, AIR=1, WATER=2;
 const NUM_VEHICLE_TYPES = 3;
@@ -26,10 +47,23 @@ class VisApp extends BaseApp {
         //Camera recording
         this.camPos = [];
         this.currentCamPos = -1;
+        this.baseName = "timeVizConfig";
     }
 
     init(container) {
         super.init(container);
+
+        //Load any preferences
+        let prefs = localStorage.getItem(this.baseName + "Saved");
+        if(prefs) {
+            let value;
+            for(let prop in appearanceConfig) {
+                value = localStorage.getItem(this.baseName + prop);
+                if(value) {
+                    this.setGUI(prop,value);
+                }
+            }
+        }
     }
 
     update() {
@@ -110,6 +144,10 @@ class VisApp extends BaseApp {
                 this.visNodes.push(visNode);
                 info = currentDataSet[i];
                 info.xPos = (j * X_INC) - X_START;
+                info.labelScaleX = appearanceConfig.Width;
+                info.labelScaleY = appearanceConfig.Height;
+                info.speedScale = 1/appearanceConfig.speedScale;
+                info.nodeScale = appearanceConfig.nodeScale;
                 visNode.init(info);
                 visNode.setBounds(this.yearOffset, this.mapOffset, this.yearScale);
                 visNode.createGeometry();
@@ -138,62 +176,59 @@ class VisApp extends BaseApp {
         let year = 1890;
         this.yearOffset = yearOffset;
         this.year = year;
-        this.yearScale = 8;
-        this.mapOffset = 220;
+        this.yearScale = 25;
+        this.mapOffset = 1500;
         let yearSelection = 5;
         this.yearSelection = yearSelection;
-        let _this = this;
-        window.addEventListener('load',function(){
-            let appearanceConfig = {
-                labelWidth: 300,
-                labelWidthRange : [250,500],
-                labelHeight: 125,
-                labelHeightRange: [100, 350],
-                speedScale: 0.7,
-                speedScaleRange: [0.1, 10],
-                nodeScale: 1.0,
-                nodeScaleRange: [0.5, 5],
-                renderStyles: ["Cull", "Colour", "Transparent"],
-                nodeColour: '#0000ff',
-                sliderColour: '#5f7c9d',
-                groundColour: '#16283c',
-                backgroundColour: '#5c5f64'
-            };
-
-            let dataConfig = {
-                year: year,
-                yearRange: [yearOffset, 2000],
-                selection: yearSelection,
-                selectionRange: [yearSelection, 110],
-                showSlider: true
-            };
+        window.addEventListener('load', () => {
 
             let controlKit = new ControlKit();
 
             controlKit.addPanel({width: 200})
-                .addGroup({label: 'Appearance', enable: false})
-                .addSlider(appearanceConfig,'labelWidth','labelWidthRange',{label: 'LabelWidth', dp: 1, onChange: function() {
-                    _this.onLabelScale(X_AXIS, appearanceConfig.labelWidth);
-                }})
-                .addSlider(appearanceConfig,'labelHeight','labelHeightRange',{label: 'LabelHeight', dp: 1, onChange: function() {
-                    _this.onLabelScale(Y_AXIS, appearanceConfig.labelHeight);
-                }})
-                .addSlider(appearanceConfig,'speedScale','speedScaleRange',{label: 'SpeedScale', dp: 1, onChange: function() {
-                    _this.onSpeedScale(appearanceConfig.speedScale);
-                }})
-                .addSlider(appearanceConfig, 'nodeScale', 'nodeScaleRange', {label: 'NodeScale', dp: 1, onChange: function() {
-                    _this.onNodeScaleChanged(appearanceConfig.nodeScale);
-                }})
-                .addColor(appearanceConfig, 'nodeColour', {colorMode: 'hex', onChange: function() {
-                    _this.onNodeColourChanged(appearanceConfig.nodeColour);
-                }})
-                .addColor(appearanceConfig, 'groundColour', {colorMode: 'hex', onChange: function() {
-                    _this.onGroundColourChanged(appearanceConfig.groundColour);
-                }})
-                .addColor(appearanceConfig, 'backgroundColour', {colorMode: 'hex', onChange: function() {
-                    _this.onBackgroundColourChanged(appearanceConfig.backgroundColour);
-                }})
+                .addSubGroup({label: 'Appearance', enable: false})
+                    .addColor(appearanceConfig, 'Node', {colorMode: 'hex', onChange: () => {
+                        this.onNodeColourChanged(appearanceConfig.Node);
+                    }})
+                    .addColor(appearanceConfig, 'Ground', {colorMode: 'hex', onChange: () => {
+                        this.onGroundColourChanged(appearanceConfig.Ground);
+                    }})
+                    .addColor(appearanceConfig, 'Back', {colorMode: 'hex', onChange: () => {
+                        this.onBackgroundColourChanged(appearanceConfig.Back);
+                    }})
+                .addSubGroup({label: 'Labels', enable: false})
+                    .addSlider(appearanceConfig,'Width','labelWidthRange',{label: 'Width', dp: 1, onChange: () => {
+                        this.onLabelScale(X_AXIS, appearanceConfig.Width);
+                    }})
+                    .addSlider(appearanceConfig,'Height','labelHeightRange',{label: 'Height', dp: 1, onChange: () => {
+                        this.onLabelScale(Y_AXIS, appearanceConfig.Height);
+                    }})
+                .addSubGroup({label: 'Nodes', enable: false})
+                    .addSlider(appearanceConfig,'speedScale','speedScaleRange',{label: 'Scale', dp: 1, onChange: () => {
+                        this.onSpeedScale(appearanceConfig.speedScale);
+                    }})
+                    .addSlider(appearanceConfig, 'nodeScale', 'nodeScaleRange', {label: 'Size', dp: 1, onChange: () => {
+                        this.onNodeScaleChanged(appearanceConfig.nodeScale);
+                    }})
+
+                .addSubGroup({label: "Preferences"})
+                .addButton("Save", () => {
+                    for(let prop in saveConfig) {
+                        if(prop in appearanceConfig) {
+                            saveConfig[prop] = appearanceConfig[prop];
+                        }
+                    }
+                    this.savePreferences(saveConfig);
+                });
         });
+    }
+
+    setGUI(prop, value) {
+        let newValue = parseFloat(value);
+        if(isNaN(newValue)) {
+            appearanceConfig[prop] = value;
+            return;
+        }
+        appearanceConfig[prop] = newValue;
     }
 
     onLabelScale(axis, scale) {
@@ -221,7 +256,7 @@ class VisApp extends BaseApp {
     onSpeedScale(scale) {
         let i, numNodes = this.visNodes.length;
         for(i=0; i<numNodes; ++i) {
-            this.visNodes[i].setSpeedScale(3/scale);
+            this.visNodes[i].setSpeedScale(1/scale);
         }
     }
 
@@ -248,6 +283,13 @@ class VisApp extends BaseApp {
 
     onBackgroundColourChanged(colour) {
         this.renderer.setClearColor(colour, 1.0);
+    }
+
+    savePreferences(config) {
+        for(let prop in config) {
+            localStorage.setItem(this.baseName+prop, config[prop]);
+        }
+        localStorage.setItem(this.baseName+"Saved", "Saved");
     }
 
     nextRecord() {
@@ -382,7 +424,7 @@ class VisApp extends BaseApp {
         for(let i=0; i<NUM_VEHICLE_TYPES; ++i) {
             dataSet = this.data[i];
             vehicleData = dataSet[currentNodes[i]];
-            $('#' + elemPrefix[i] + 'Speed').html(vehicleData.Speed);
+            $('#' + elemPrefix[i] + 'Speed').html(vehicleData.Speed.toFixed(1));
             $('#' + elemPrefix[i] + 'Year').html(vehicleData.Year);
         }
     }

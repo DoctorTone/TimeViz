@@ -46,14 +46,18 @@ body {
 #instructions {
     bottom: 5%;
     left: 5%;
+    width: 5%;
+}
+#instructions img {
+    width: 100%;
 }
 #camControls {
     top: 5%;
-    left: 0%;
+    left: 1%;
+    width: 10%;
 }
 #camControls img {
-    width: 50%;
-    padding: 2px;
+    width: 100%;
 }
 #information {
     top: 20%;
@@ -197,4 +201,8 @@ body {
 }
 #traverse {
     margin-left: -20px;
+}
+#fullScreenContainer {
+    top: 50%;
+    left: 2%;
 }

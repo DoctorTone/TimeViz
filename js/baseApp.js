@@ -43,13 +43,6 @@ class BaseApp {
     createRenderer() {
         this.renderer = new THREE.WebGLRenderer( {antialias : true, alpha: true});
         this.renderer.setClearColor(0x5c5f64, 1.0);
-        let isMSIE = /*@cc_on!@*/0;
-
-        let width = this.container.clientWidth;
-        if (isMSIE) {
-            // do IE-specific things
-            width = window.innerWidth;
-        }
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.container.appendChild( this.renderer.domElement );
 

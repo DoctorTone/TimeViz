@@ -19,11 +19,11 @@ var VisNode = function() {
     this.yearScale = 4;
     this.mapOffset = 0;
     this.speedScale = 3;
+    this.nodeScale = 1;
     this.labelPosition = new THREE.Vector3();
     this.geomPosition = new THREE.Vector3();
     this.alignment = 3;
     this.textColour =  new THREE.LineBasicMaterial( {color: 0xffff00} );
-    this.labelScale = new THREE.Vector3(300, 100, 1);
 };
 
 VisNode.prototype = {
@@ -34,10 +34,13 @@ VisNode.prototype = {
         this.driver = info.Driver;
         this.vehicle = info.Vehicle;
         this.speed = info.Speed;
+        this.speedScale = info.speedScale;
+        this.nodeScale = info.nodeScale;
         this.nodeXPos = info.xPos;
 
         //Geometry for this node
         this.nodeGroup = new THREE.Object3D();
+        this.labelScale = new THREE.Vector3(info.labelScaleX, info.labelScaleY, 1);
 
         return true;
     },
@@ -51,6 +54,7 @@ VisNode.prototype = {
     createGeometry: function() {
         this.nodeMesh = new THREE.Mesh(this.nodeGeometry, this.nodeMaterial);
         this.nodeMesh.position.set(this.nodeXPos, this.speed/this.speedScale, ((this.year - this.yearOffset)*this.yearScale)-this.mapOffset);
+        this.nodeMesh.scale.set(this.nodeScale, this.nodeScale, this.nodeScale);
         this.nodeGroup.add(this.nodeMesh);
         var label = this.createLabel();
         this.nodeGroup.add(label);
