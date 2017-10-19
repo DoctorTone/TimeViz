@@ -63,6 +63,9 @@ body {
     padding: 0;
     width: 80%;
 }
+#camControls .container-fluid button:first-child {
+    margin-right: 3%;
+}
 #information {
     top: 2.5%;
     left: 2.5%;

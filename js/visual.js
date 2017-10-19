@@ -194,7 +194,7 @@ class VisApp extends BaseApp {
 
             let controlKit = new ControlKit();
 
-            controlKit.addPanel({width: 200})
+            controlKit.addPanel({label: "Configuration", width: 200, enable: false})
                 .addSubGroup({label: 'Appearance', enable: false})
                     .addColor(appearanceConfig, 'Node', {colorMode: 'hex', onChange: () => {
                         this.onNodeColourChanged(appearanceConfig.Node);
