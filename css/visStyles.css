@@ -67,6 +67,7 @@ body {
     top: 2.5%;
     left: 2.5%;
     width: 10%;
+    color: white;
 }
 .hidden {
     display: none;
@@ -202,6 +203,7 @@ body {
     border: solid orange 2px;
     border-radius: 15px;
     padding: 0 0 5px 28px;
+    color: white;
 }
 #traverse {
     margin-left: -20px;
