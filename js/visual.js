@@ -1,13 +1,13 @@
 
 let appearanceConfig = {
     Width: 300,
-    labelWidthRange : [250,500],
+    labelWidthRange : [250,1000],
     Height: 125,
-    labelHeightRange: [100, 350],
+    labelHeightRange: [100, 700],
     speedScale: 0.1,
     speedScaleRange: [0.1, 1],
     nodeScale: 1.0,
-    nodeScaleRange: [0.5, 5],
+    nodeScaleRange: [0.5, 50],
     Node: '#0000ff',
     Ground: '#16283c',
     Back: '#5c5f64'
@@ -26,6 +26,8 @@ let saveConfig = {
 const X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
 const LAND=0, AIR=1, WATER=2;
 const NUM_VEHICLE_TYPES = 3;
+const ROT_INC = Math.PI/64;
+
 class VisApp extends BaseApp {
     constructor() {
         super();
@@ -125,7 +127,7 @@ class VisApp extends BaseApp {
 
     addSceneContents() {
         //Create a node for each data item
-        const X_INC = 500;
+        const X_INC = 1000;
         const X_START = 500;
         this.visNodes = [];
         let nodeGroups = [];
@@ -184,7 +186,7 @@ class VisApp extends BaseApp {
         let year = 1890;
         this.yearOffset = yearOffset;
         this.year = year;
-        this.yearScale = 25;
+        this.yearScale = 50;
         this.mapOffset = 1500;
         let yearSelection = 5;
         this.yearSelection = yearSelection;
@@ -448,17 +450,11 @@ $(document).ready(function() {
     app.createScene();
 
     //GUI callbacks
-    $("#camFront").on("click", function(evt) {
-        app.changeView(FRONT);
+    $("#camRight").on("click", function() {
+        app.moveCamera(ROT_INC);
     });
-    $("#camRight").on("click", function(evt) {
-        app.changeView(RIGHT);
-    });
-    $("#camLeft").on("click", function(evt) {
-        app.changeView(LEFT);
-    });
-    $("#camTop").on("click", function(evt) {
-        app.changeView(TOP);
+    $("#camLeft").on("click", function() {
+        app.moveCamera(-ROT_INC);
     });
 
     $('#previousRecord').on("click", () => {

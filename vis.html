@@ -19,12 +19,12 @@
     <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="js/TrackballControls.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/baseApp.js?v=0.8"></script>
+    <script type="text/javascript" src="js/baseApp.js?v=0.10"></script>
     <script type="text/javascript" src="js/dataLoader.js"></script>
     <script type="text/javascript" src="js/spriteManager.js?v=0.3"></script>
-    <script type="text/javascript" src="js/visNode.js?v=0.13"></script>
+    <script type="text/javascript" src="js/visNode.js?v=0.1"></script>
     <script type="text/javascript" src="js/controlKit.min.js?v=0.1"></script>
-    <script type="text/javascript" src="js/visual.js?v=0.18"></script>
+    <script type="text/javascript" src="js/visual.js?v=0.3"></script>
     <!-- endbuild -->
 
 </head>
@@ -41,28 +41,22 @@
 </div>
 
 <div id="instructions" class="infoPanel">
-    <a href="instructions.html" target="_blank"><img src="images/infoOrange2.png"></a>
+    <a href="instructions.html" target="_blank"><img src="images/info.png"></a>
 </div>
 
 <div id="camControls" class="infoPanel">
     <div class="centred">
-        <button id="camFront" class="btn btn-primary">Front</button>
+        <img src="images/camera.png">
     </div>
     <div class="container-fluid">
         <div class="row no-gutters">
-            <div class="col-md-4 centred">
-                <button id="camLeft" class="btn btn-primary">Left</button>
+            <div class="col-md-6 centred">
+                <button id="camLeft" class="btn btn-primary"><img src="images/leftWhite.png"></button>
             </div>
-            <div class="col-md-4 centred">
-                <img src="images/camera.png">
-            </div>
-            <div class="col-md-4 centred">
-                <button id="camRight" class="btn btn-primary">Right</button>
+            <div class="col-md-6 centred">
+                <button id="camRight" class="btn btn-primary"><img src="images/rightWhite.png"></button>
             </div>
         </div>
-    </div>
-    <div class="centred">
-        <button id="camTop" class="btn btn-primary">Top</button>
     </div>
 </div>
 
@@ -114,8 +108,5 @@
     </div>
 </div>
 
-<div id="fullScreenContainer" class="infoPanel">
-    <button type="button" class="btn btn-primary">Fullscreen</button>
-</div>
 </body>
 </html>

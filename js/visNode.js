@@ -54,7 +54,7 @@ VisNode.prototype = {
     },
 
     createGeometry: function() {
-        this.nodeMesh = new THREE.Mesh(this.nodeGeometry, this.nodeMaterial);
+        this.nodeMesh = new THREE.Mesh(this.nodeGeometry, this.nodeMaterialTransparent);
         this.nodeMesh.position.set(this.nodeXPos, this.speed/this.speedScale, ((this.year - this.yearOffset)*this.yearScale)-this.mapOffset);
         this.nodeMesh.scale.set(this.nodeScale, this.nodeScale, this.nodeScale);
         this.nodeGroup.add(this.nodeMesh);

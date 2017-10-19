@@ -44,24 +44,28 @@ body {
     font-size: 1.4vw;
 }
 #instructions {
-    bottom: 5%;
-    left: 5%;
+    bottom: 1%;
+    left: 1%;
     width: 5%;
 }
 #instructions img {
     width: 100%;
 }
 #camControls {
-    top: 5%;
-    left: 1%;
+    bottom: 1.5%;
+    right: 10%;
     width: 10%;
 }
 #camControls img {
-    width: 100%;
+    width: 40%;
+}
+#camControls button {
+    padding: 0;
+    width: 80%;
 }
 #information {
-    top: 20%;
-    left: 5%;
+    top: 2.5%;
+    left: 2.5%;
     width: 10%;
 }
 .hidden {
@@ -193,7 +197,7 @@ body {
 }
 #selectorContainer {
     right: 1.5%;
-    bottom: 10%;
+    bottom: 1.5%;
     width: 5.5%;
     border: solid orange 2px;
     border-radius: 15px;
