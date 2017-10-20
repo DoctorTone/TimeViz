@@ -29,84 +29,113 @@
 
 </head>
 <body>
-<!-- Stats output -->
-<div id="Stats-output">
-</div>
-<!-- Div which will hold the Output -->
-<div id="WebGL-output">
-</div>
-
-<div id="title">
-    <img src="images/speed.png"> World Speed Records
-</div>
-
-<div id="instructions" class="infoPanel">
-    <a href="instructions.html" target="_blank"><img src="images/info.png"></a>
-</div>
-
-<div id="camControls" class="infoPanel">
-    <div class="centred">
-        <img src="images/camera.png">
-    </div>
-    <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-md-6 centred">
-                <button id="camLeft" class="btn btn-primary"><img src="images/leftWhite.png"></button>
-            </div>
-            <div class="col-md-6 centred">
-                <button id="camRight" class="btn btn-primary"><img src="images/rightWhite.png"></button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Time-varying Data</h4>
+                </div>
+                <div class="modal-body">
+                    This visualisation shows three strands of related data that have varied over time. Select the required dataset and observe how the speed records have changed over the years for
+                    the different vehicles.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- Stats output -->
+    <div id="Stats-output">
+    </div>
+    <!-- Div which will hold the Output -->
+    <div id="WebGL-output">
+    </div>
 
-<!-- Main info panel -->
-<div id="information" class="infoPanel centred">
-    <!-- Info sub-panel -->
-    <div id="infoText">
-        <span class="label label-warning">Information</span>
+    <div id="title">
+        <img src="images/speed.png"> World Speed Records
     </div>
-    <div id="infoData">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Speed</th>
-                    <th>Year</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Land</td>
-                    <td id="landSpeed"></td>
-                    <td id="landYear"></td>
-                </tr>
-                <tr>
-                    <td>Air</td>
-                    <td id="airSpeed"></td>
-                    <td id="airYear"></td>
-                </tr>
-                <tr>
-                    <td>Water</td>
-                    <td id="waterSpeed"></td>
-                    <td id="waterYear"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
-<div id="selectorContainer" class="infoPanel">
-    <div id="speedSelect">
-        <label class="radio"><input type="radio" id="selectTypeLand" name="typeSelect" checked>Land</label>
-        <label class="radio"><input type="radio" id="selectTypeAir" name="typeSelect">Air</label>
-        <label class="radio"><input type="radio" id="selectTypeWater" name="typeSelect">Water</label>
+    <div id="instructions" class="infoPanel">
+        <img src="images/info.png">
     </div>
-    <div id="traverse">
-        <button type="button" id="previousRecord" class="btn btn-primary"><img src="images/leftWhite.png"></button>
-        <button type="button" id="nextRecord" class="btn btn-primary"><img src="images/rightWhite.png"></button>
-    </div>
-</div>
 
+    <div id="camControls" class="infoPanel">
+        <div class="centred">
+            <img src="images/camera.png">
+        </div>
+        <div class="container-fluid">
+            <div class="row no-gutters">
+                <div class="col-md-6 centred">
+                    <button id="camLeft" class="btn btn-primary"><img src="images/leftWhite.png"></button>
+                </div>
+                <div class="col-md-6 centred">
+                    <button id="camRight" class="btn btn-primary"><img src="images/rightWhite.png"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main info panel -->
+    <div id="information" class="infoPanel centred">
+        <!-- Info sub-panel -->
+        <div id="infoText">
+            <span class="label label-warning">Information</span>
+        </div>
+        <div id="infoData">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Speed</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Land</td>
+                        <td id="landSpeed"></td>
+                        <td id="landYear"></td>
+                    </tr>
+                    <tr>
+                        <td>Air</td>
+                        <td id="airSpeed"></td>
+                        <td id="airYear"></td>
+                    </tr>
+                    <tr>
+                        <td>Water</td>
+                        <td id="waterSpeed"></td>
+                        <td id="waterYear"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="selectorContainer" class="infoPanel">
+        <div id="speedSelect">
+            <label class="radio"><input type="radio" id="selectTypeLand" name="typeSelect" checked>Land</label>
+            <label class="radio"><input type="radio" id="selectTypeAir" name="typeSelect">Air</label>
+            <label class="radio"><input type="radio" id="selectTypeWater" name="typeSelect">Water</label>
+        </div>
+        <div id="traverse">
+            <button type="button" id="previousRecord" class="btn btn-primary"><img src="images/leftWhite.png"></button>
+            <button type="button" id="nextRecord" class="btn btn-primary"><img src="images/rightWhite.png"></button>
+        </div>
+    </div>
+
+    <div id="copyright" class="infoPanel centred">
+        <p>
+            &copy; DRT Software Ltd, 2017
+        </p>
+    </div>
+
+    <div id="notSupported" class="infoPanel centred noDisplay">
+        <p>
+            <img src="images/warning.png"> Your browser does not support WebGL. Please update to the latest version of Chrome or Firefox.
+        </p>
+    </div>
 </body>
 </html>

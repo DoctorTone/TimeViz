@@ -52,8 +52,8 @@ body {
     width: 100%;
 }
 #camControls {
-    bottom: 1.5%;
-    right: 10%;
+    bottom: 2%;
+    right: 7.5%;
     width: 10%;
 }
 #camControls img {
@@ -221,4 +221,10 @@ body {
 #fullScreenContainer {
     top: 50%;
     left: 2%;
+}
+#copyright {
+    left: 7.5%;
+    bottom: 2.5%;
+    color: white;
+    font-size: 1.5vw;
 }

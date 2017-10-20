@@ -498,5 +498,9 @@ $(document).ready(function() {
         app.changeRecordType(this.id);
     });
 
+    $('#instructions').on("click", () => {
+        $('#myModal').modal();
+    });
+
     app.run();
 });
