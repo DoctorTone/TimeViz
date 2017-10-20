@@ -27,6 +27,7 @@ const X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
 const LAND=0, AIR=1, WATER=2;
 const NUM_VEHICLE_TYPES = 3;
 const ROT_INC = Math.PI/64;
+const START_ROT = -Math.PI/4;
 
 class VisApp extends BaseApp {
     constructor() {
@@ -82,6 +83,13 @@ class VisApp extends BaseApp {
     createScene() {
         super.createScene();
 
+        //Root node
+        this.root = new THREE.Object3D();
+        this.root.name = "root";
+        this.root.rotation.y = START_ROT;
+
+        this.addToScene(this.root);
+
         this.GROUND_WIDTH = 16000;
         this.GROUND_HEIGHT = 12000;
         this.addGroundPlane();
@@ -109,7 +117,7 @@ class VisApp extends BaseApp {
         plane.rotation.x=-0.5*Math.PI;
         //plane.position.set(width/2 - overlap, 0, 0);
 
-        this.addToScene(plane);
+        this.root.add(plane);
 
         //Second plane
         planeGeometry = new THREE.PlaneGeometry(width, height, 1, 1);
@@ -122,13 +130,13 @@ class VisApp extends BaseApp {
         plane.name = 'ground';
 
         // add the plane to the scene
-        this.addToScene(plane);
+        this.root.add(plane);
     }
 
     addSceneContents() {
         //Create a node for each data item
-        const X_INC = 1000;
-        const X_START = 500;
+        const X_INC = 1750;
+        const X_START = X_INC;
         this.visNodes = [];
         let nodeGroups = [];
         let groupNodeNames = ['landRecords', 'airRecords', 'waterRecords'];
@@ -136,7 +144,7 @@ class VisApp extends BaseApp {
         for(group=0; group<numGroups; ++group) {
             nodeGroup = new THREE.Object3D();
             nodeGroup.name = groupNodeNames[group];
-            this.addToScene(nodeGroup);
+            this.root.add(nodeGroup);
             nodeGroups.push(nodeGroup);
         }
         let numSets = this.data.length;

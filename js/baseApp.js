@@ -27,7 +27,7 @@ class BaseApp {
         this.raycaster = new THREE.Raycaster();
         this.objectsPicked = false;
         this.tempVector = new THREE.Vector3();
-        this.cameraRotation = 0
+        this.cameraRotation = 0;
     }
 
     init(container) {
@@ -156,7 +156,7 @@ class BaseApp {
     }
 
     createCamera() {
-        const CAM_X = 4500, CAM_Y = 2800, CAM_Z = 3800;
+        const CAM_X = 0, CAM_Y = 3100, CAM_Z = 4600;
         const NEAR_PLANE = 0.1, FAR_PLANE = 20000;
         this.defaultCamPos = new THREE.Vector3(CAM_X, CAM_Y, CAM_Z);
         this.camera = new THREE.PerspectiveCamera(45, this.container.clientWidth / window.innerHeight, NEAR_PLANE, FAR_PLANE );
@@ -168,7 +168,7 @@ class BaseApp {
         this.cameraRotation += rotation;
         let lookAt = this.controls.getLookAt();
         this.tempVector.copy(this.camera.position);
-        this.tempVector.y = 0;
+        this.tempVector.y = lookAt.y;
         let radius = this.tempVector.distanceTo(lookAt);
         let deltaX = radius*Math.sin(this.cameraRotation);
         let deltaZ = radius*Math.cos(this.cameraRotation);
@@ -186,7 +186,7 @@ class BaseApp {
 
         this.controls.keys = [ 65, 83, 68 ];
 
-        const LOOK_X = -300, LOOK_Y = 365, LOOK_Z = 450;
+        const LOOK_X = 0, LOOK_Y = 365, LOOK_Z = 450;
         let lookAt = new THREE.Vector3(LOOK_X, LOOK_Y, LOOK_Z);
         this.controls.setLookAt(lookAt);
     }
