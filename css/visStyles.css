@@ -52,12 +52,12 @@ body {
     width: 100%;
 }
 #camControls {
-    bottom: 2%;
-    right: 7.5%;
-    width: 10%;
+    bottom: 30%;
+    right: 0.5%;
+    width: 8%;
 }
 #camControls img {
-    width: 40%;
+    width: 50%;
 }
 #camControls button {
     padding: 0;
@@ -218,9 +218,19 @@ body {
     width: 40%;
     padding: 0;
 }
-#fullScreenContainer {
-    top: 50%;
-    left: 2%;
+#zoomControl {
+    bottom: 20%;
+    right: 1.5%;
+    width: 6%;
+    color: white;
+    font-size: 1.25vw;
+}
+#zoomControl button {
+    width: 35%;
+    padding: 0;
+}
+#zoomControl img {
+    width: 100%;
 }
 #copyright {
     left: 7.5%;
