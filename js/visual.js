@@ -503,11 +503,27 @@ $(document).ready(function() {
         app.rotateCamera(false);
     });
 
+    camRight.on("touchstart", function() {
+        app.rotateCamera(true, RIGHT);
+    });
+
+    camRight.on("touchend", function() {
+        app.rotateCamera(false);
+    });
+
     camLeft.on("mousedown", function() {
         app.rotateCamera(true, LEFT);
     });
 
     camLeft.on("mouseup", function() {
+        app.rotateCamera(false);
+    });
+
+    camLeft.on("touchstart", function() {
+        app.rotateCamera(true, LEFT);
+    });
+
+    camLeft.on("touchend", function() {
         app.rotateCamera(false);
     });
 
@@ -519,11 +535,27 @@ $(document).ready(function() {
         app.zoomIn(false);
     });
 
+    zoomIn.on("touchstart", () => {
+        app.zoomIn(true);
+    });
+
+    zoomIn.on("touchend", () => {
+        app.zoomIn(false);
+    });
+
     zoomOut.on("mousedown", () => {
         app.zoomOut(true);
     });
 
     zoomOut.on("mouseup", () => {
+        app.zoomOut(false);
+    });
+
+    zoomOut.on("touchstart", () => {
+        app.zoomOut(true);
+    });
+
+    zoomOut.on("touchend", () => {
         app.zoomOut(false);
     });
 
