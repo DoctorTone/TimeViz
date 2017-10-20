@@ -1,16 +1,16 @@
 
 let appearanceConfig = {
-    Width: 300,
-    labelWidthRange : [250,1000],
-    Height: 125,
-    labelHeightRange: [100, 700],
-    speedScale: 0.1,
+    Width: 1600,
+    labelWidthRange : [250,2000],
+    Height: 800,
+    labelHeightRange: [100, 1000],
+    speedScale: 0.75,
     speedScaleRange: [0.1, 1],
-    nodeScale: 1.0,
+    nodeScale: 10,
     nodeScaleRange: [0.5, 50],
-    Node: '#0000ff',
-    Ground: '#16283c',
-    Back: '#5c5f64'
+    Node: '#20289e',
+    Ground: '#94a1b0',
+    Back: '#444a54'
 };
 
 let saveConfig = {
