@@ -43,6 +43,8 @@ VisNode.prototype = {
         this.labelScale = new THREE.Vector3(info.labelScaleX, info.labelScaleY, 1);
         this.nodeMaterial.color.setStyle(info.nodeColour);
         this.nodeMaterial.needsUpdate = true;
+        this.nodeMaterialTransparent.color.setStyle(info.nodeColour);
+        this.nodeMaterialTransparent.needsUpdate = true;
 
         return true;
     },
@@ -93,6 +95,8 @@ VisNode.prototype = {
     setColour: function(colour) {
         this.nodeMaterial.color.setStyle(colour);
         this.nodeMaterial.needsUpdate = true;
+        this.nodeMaterialTransparent.color.setStyle(colour);
+        this.nodeMaterialTransparent.needsUpdate = true;
     },
 
     setSpeedScale: function(scale) {
@@ -118,7 +122,7 @@ VisNode.prototype = {
 
     select: function(state) {
         this.label.visible = state;
-        this.nodeMesh.material = state ? this.nodeMaterialSelected : this.nodeMaterial;
+        this.nodeMesh.material = state ? this.nodeMaterialSelected : this.nodeMaterialTransparent;
     }
 };
 
