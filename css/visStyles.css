@@ -211,6 +211,13 @@ body {
 #traverse {
     margin-left: -20px;
 }
+#traverse img {
+    width: 100%;
+}
+#traverse button {
+    width: 40%;
+    padding: 0;
+}
 #fullScreenContainer {
     top: 50%;
     left: 2%;
