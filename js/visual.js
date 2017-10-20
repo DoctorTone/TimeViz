@@ -476,6 +476,12 @@ class VisApp extends BaseApp {
 
 const RIGHT= 0, LEFT= 1;
 $(document).ready(function() {
+    //Ensure webgl support
+    if(!Detector.webgl) {
+        $('#notSupported').show();
+        return;
+    }
+
     //Initialise app
     let container = document.getElementById("WebGL-output");
     let app = new VisApp();
