@@ -185,7 +185,7 @@ class BaseApp {
 
         this.controls.keys = [ 65, 83, 68 ];
 
-        const LOOK_X = 0, LOOK_Y = 365, LOOK_Z = 450;
+        const LOOK_X = 0, LOOK_Y = 0, LOOK_Z = 0;
         let lookAt = new THREE.Vector3(LOOK_X, LOOK_Y, LOOK_Z);
         this.controls.setLookAt(lookAt);
         this.lookAt = lookAt;

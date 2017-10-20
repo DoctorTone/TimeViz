@@ -28,35 +28,27 @@ const LAND=0, AIR=1, WATER=2;
 const NUM_VEHICLE_TYPES = 3;
 const ROT_INC = Math.PI/64;
 const START_ROT = -Math.PI/4;
+const MOVE_SPEED = 0.1;
 
 class VisApp extends BaseApp {
     constructor() {
         super();
 
         this.data = null;
-        this.updateRequired = false;
-        this.nodesRendered = 0;
-        this.spritesRendered = 0;
-        this.nodesInSlider = 0;
-        this.guiControls = null;
-        this.dataFile = null;
         this.currentLandNode = 0;
         this.currentAirNode = 0;
         this.currentWaterNode = 0;
         this.currentDataset = LAND;
-        //Always have appearance and data folders to gui
-        this.guiAppear = null;
-        this.guiData = null;
-        //Time slider
-        this.sliderPos = 0;
-        this.outlineNodeName = null;
-        //Camera recording
-        this.camPos = [];
-        this.currentCamPos = -1;
         this.baseName = "timeVizConfig";
         this.cameraRotate = false;
-        this.moveSpeed = Math.PI/20;
+        this.rotSpeed = Math.PI/20;
         this.rotDirection = 1;
+        this.zoomingIn = false;
+        this.zoomingOut = false;
+        this.moveSpeed = MOVE_SPEED;
+
+        //Temp variables
+        this.tempVec = new THREE.Vector3();
     }
 
     init(container) {
@@ -83,8 +75,21 @@ class VisApp extends BaseApp {
         let delta = this.clock.getDelta();
 
         if(this.cameraRotate) {
-            this.moveCamera(this.moveSpeed * this.rotDirection * delta);
+            this.moveCamera(this.rotSpeed * this.rotDirection * delta);
         }
+
+        if(this.zoomingIn) {
+            this.tempVec.sub(this.camera.position, this.controls.getLookAt());
+            this.tempVec.multiplyScalar(this.moveSpeed * delta);
+            this.root.position.add(this.tempVec);
+        }
+
+        if(this.zoomingOut) {
+            this.tempVec.sub(this.camera.position, this.controls.getLookAt());
+            this.tempVec.multiplyScalar(this.moveSpeed * delta);
+            this.root.position.sub(this.tempVec);
+        }
+
         super.update();
     }
 
@@ -428,6 +433,14 @@ class VisApp extends BaseApp {
         this.cameraRotate = status;
     }
 
+    zoomIn(zoom) {
+        this.zoomingIn = zoom;
+    }
+
+    zoomOut(zoom) {
+        this.zoomingOut = zoom;
+    }
+
     changeRecordType(type) {
         //Set data type
         switch(type) {
@@ -471,20 +484,41 @@ $(document).ready(function() {
     app.createScene();
 
     //GUI callbacks
-    $("#camRight").on("mousedown", function() {
+    let camRight = $('#camRight');
+    let camLeft = $('#camLeft');
+    let zoomIn = $('#zoomIn');
+    let zoomOut = $('#zoomOut');
+
+    camRight.on("mousedown", function() {
         app.rotateCamera(true, RIGHT);
     });
 
-    $("#camRight").on("mouseup", function() {
+    camRight.on("mouseup", function() {
         app.rotateCamera(false);
     });
 
-    $("#camLeft").on("mousedown", function() {
+    camLeft.on("mousedown", function() {
         app.rotateCamera(true, LEFT);
     });
 
-    $("#camLeft").on("mouseup", function() {
+    camLeft.on("mouseup", function() {
         app.rotateCamera(false);
+    });
+
+    zoomIn.on("mousedown", () => {
+        app.zoomIn(true);
+    });
+
+    zoomIn.on("mouseup", () => {
+        app.zoomIn(false);
+    });
+
+    zoomOut.on("mousedown", () => {
+        app.zoomOut(true);
+    });
+
+    zoomOut.on("mouseup", () => {
+        app.zoomOut(false);
     });
 
     $('#previousRecord').on("click", () => {
