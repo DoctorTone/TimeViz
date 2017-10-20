@@ -54,6 +54,9 @@ class VisApp extends BaseApp {
         this.camPos = [];
         this.currentCamPos = -1;
         this.baseName = "timeVizConfig";
+        this.cameraRotate = false;
+        this.moveSpeed = Math.PI/20;
+        this.rotDirection = 1;
     }
 
     init(container) {
@@ -77,6 +80,11 @@ class VisApp extends BaseApp {
     }
 
     update() {
+        let delta = this.clock.getDelta();
+
+        if(this.cameraRotate) {
+            this.moveCamera(this.moveSpeed * this.rotDirection * delta);
+        }
         super.update();
     }
 
@@ -415,6 +423,11 @@ class VisApp extends BaseApp {
         this.controls.setLookAt(new THREE.Vector3(170, 70, 0));
     }
 
+    rotateCamera(status, direction) {
+        this.rotDirection = direction === RIGHT ? 1 : -1;
+        this.cameraRotate = status;
+    }
+
     changeRecordType(type) {
         //Set data type
         switch(type) {
@@ -448,7 +461,7 @@ class VisApp extends BaseApp {
     }
 }
 
-const FRONT= 0, RIGHT= 1, LEFT= 2, TOP=3;
+const RIGHT= 0, LEFT= 1;
 $(document).ready(function() {
     //Initialise app
     let container = document.getElementById("WebGL-output");
@@ -458,11 +471,20 @@ $(document).ready(function() {
     app.createScene();
 
     //GUI callbacks
-    $("#camRight").on("click", function() {
-        app.moveCamera(ROT_INC);
+    $("#camRight").on("mousedown", function() {
+        app.rotateCamera(true, RIGHT);
     });
-    $("#camLeft").on("click", function() {
-        app.moveCamera(-ROT_INC);
+
+    $("#camRight").on("mouseup", function() {
+        app.rotateCamera(false);
+    });
+
+    $("#camLeft").on("mousedown", function() {
+        app.rotateCamera(true, LEFT);
+    });
+
+    $("#camLeft").on("mouseup", function() {
+        app.rotateCamera(false);
     });
 
     $('#previousRecord').on("click", () => {

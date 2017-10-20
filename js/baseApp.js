@@ -166,13 +166,12 @@ class BaseApp {
     moveCamera(rotation) {
         //Rotate camera about lookat point
         this.cameraRotation += rotation;
-        let lookAt = this.controls.getLookAt();
         this.tempVector.copy(this.camera.position);
-        this.tempVector.y = lookAt.y;
-        let radius = this.tempVector.distanceTo(lookAt);
+        this.tempVector.y = this.lookAt.y;
+        let radius = this.tempVector.distanceTo(this.lookAt);
         let deltaX = radius*Math.sin(this.cameraRotation);
         let deltaZ = radius*Math.cos(this.cameraRotation);
-        this.camera.position.set(lookAt.x + deltaX, this.camera.position.y, lookAt.z + deltaZ);
+        this.camera.position.set(this.lookAt.x + deltaX, this.camera.position.y, this.lookAt.z + deltaZ);
     }
 
     createControls() {
@@ -189,6 +188,7 @@ class BaseApp {
         const LOOK_X = 0, LOOK_Y = 365, LOOK_Z = 450;
         let lookAt = new THREE.Vector3(LOOK_X, LOOK_Y, LOOK_Z);
         this.controls.setLookAt(lookAt);
+        this.lookAt = lookAt;
     }
 
     setCamera(cameraProp) {
