@@ -46,6 +46,7 @@ class VisApp extends BaseApp {
         this.zoomingIn = false;
         this.zoomingOut = false;
         this.moveSpeed = MOVE_SPEED;
+        this.messageTimer = 3 * 1000;
 
         //Temp variables
         this.tempVec = new THREE.Vector3();
@@ -321,6 +322,7 @@ class VisApp extends BaseApp {
             localStorage.setItem(this.baseName+prop, config[prop]);
         }
         localStorage.setItem(this.baseName+"Saved", "Saved");
+        this.displayMessage("Preferences saved");
     }
 
     nextRecord() {
@@ -472,6 +474,22 @@ class VisApp extends BaseApp {
             $('#' + elemPrefix[i] + 'Year').html(vehicleData.Year);
         }
     }
+
+    displayMessage(msg) {
+        $('#content').html(msg);
+        $('#message').show();
+        setTimeout( () => {
+            $('#message').hide();
+        }, this.messageTimer);
+    }
+
+    stopNotifications(elemList) {
+        for(let i=0, numElems=elemList.length; i<numElems; ++i) {
+            $('#' + elemList[i]).contextmenu(() => {
+                return false;
+            });
+        }
+    }
 }
 
 const RIGHT= 0, LEFT= 1;
@@ -569,6 +587,9 @@ $(document).ready(function() {
     $('[id^="selectType"]').on("change", function() {
         app.changeRecordType(this.id);
     });
+
+    let elemList = ["title", "instructions", "camControls", "zoomControl", "information", "selectorContainer", "copyright"];
+    app.stopNotifications(elemList);
 
     $('#instructions').on("click", () => {
         $('#myModal').modal();
