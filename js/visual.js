@@ -9,8 +9,8 @@ let appearanceConfig = {
     nodeScale: 10,
     nodeScaleRange: [0.5, 50],
     Node: '#20289e',
-    Ground: '#94a1b0',
-    Back: '#444a54'
+    Ground: '#ffffff',
+    Back: '#b8b8e3'
 };
 
 let saveConfig = {
@@ -27,7 +27,7 @@ const X_AXIS=0, Y_AXIS=1, Z_AXIS=2;
 const LAND=0, AIR=1, WATER=2;
 const NUM_VEHICLE_TYPES = 3;
 const ROT_INC = Math.PI/64;
-const START_ROT = -Math.PI/4;
+const START_ROT = -Math.PI * 0.66;
 const MOVE_SPEED = 0.1;
 
 class VisApp extends BaseApp {
