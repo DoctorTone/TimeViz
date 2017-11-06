@@ -63,7 +63,7 @@ body {
     width: 100%;
 }
 #camControls {
-    bottom: 32.5%;
+    bottom: 35%;
     right: 0.5%;
     width: 20%;
     -webkit-touch-callout: none;
@@ -79,7 +79,7 @@ body {
     width: 60%;
 }
 #information {
-    top: 10%;
+    top: 12.5%;
     left: 2.5%;
     width: 45%;
     color: white;
@@ -228,7 +228,7 @@ body {
     padding: 0;
 }
 #zoomControl {
-    bottom: 22.5%;
+    bottom: 25%;
     right: 1.5%;
     width: 20%;
     color: white;

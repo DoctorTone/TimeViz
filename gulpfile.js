@@ -66,14 +66,14 @@ gulp.task("copy", function() {
 });
 
 gulp.task("concatJS", function() {
-    gulp.src(["build/js/three86.min.js", "build/js/jquery-1.11.2.min.js", "build/js/TrackballControls.min.js", "build/js/detector.min.js", "build/js/bootstrap.min.js", "build/js/baseApp.min.js", "build/js/dataLoader.min.js",
-        "build/js/MTLLoader.min.js", "build/js/OBJLoader.min.js", "build/js/spriteManager.min.js", "build/js/trainRoute.min.js", "build/js/train.min.js", "build/js/railViz.min.js"])
+    gulp.src(["build/js/three86.min.js", "build/js/Detector.min.js", "build/js/jquery-1.11.2.min.js", "build/js/TrackballControls.min.js", "build/js/bootstrap.min.js", "build/js/baseApp.min.js", "build/js/dataLoader.min.js",
+        "build/js/spriteManager.min.js", "build/js/visNode.min.js", "build/js/spriteManager.min.js", "build/js/controlKit.min.js", "build/js/visual.min.js"])
         .pipe(concat("build.min.js"))
         .pipe(gulp.dest("dist/js/"));
 });
 
 gulp.task("concatCSS", function() {
-    gulp.src(["build/css/railStyles.min.css", "build/css/bootstrap.min.css", "build/css/bootstrap-theme.min.css"])
+    gulp.src(["build/css/visStyles.min.css", "build/css/bootstrap.min.css", "build/css/bootstrap-theme.min.css"])
         .pipe(concat("build.min.css"))
         .pipe(gulp.dest("dist/css/"));
 });
