@@ -29,6 +29,9 @@ const NUM_VEHICLE_TYPES = 3;
 const ROT_INC = Math.PI/64;
 const START_ROT = -Math.PI * 0.66;
 const MOVE_SPEED = 0.1;
+const ROOT_X = 0;
+const ROOT_Y = -1600;
+const ROOT_Z = -2400;
 
 class VisApp extends BaseApp {
     constructor() {
@@ -76,7 +79,8 @@ class VisApp extends BaseApp {
         let delta = this.clock.getDelta();
 
         if(this.cameraRotate) {
-            this.moveCamera(this.rotSpeed * this.rotDirection * delta);
+            //this.moveCamera(this.rotSpeed * this.rotDirection * delta);
+            this.root.rotation.y += (this.rotSpeed * this.rotDirection * delta);
         }
 
         if(this.zoomingIn) {
@@ -89,6 +93,8 @@ class VisApp extends BaseApp {
             this.tempVec.sub(this.camera.position, this.controls.getLookAt());
             this.tempVec.multiplyScalar(this.moveSpeed * delta);
             this.root.position.sub(this.tempVec);
+            //DEBUG
+            console.log("Root = ", this.root.position);
         }
 
         super.update();
@@ -101,6 +107,7 @@ class VisApp extends BaseApp {
         this.root = new THREE.Object3D();
         this.root.name = "root";
         this.root.rotation.y = START_ROT;
+        this.root.position.set(ROOT_X, ROOT_Y, ROOT_Z);
 
         this.addToScene(this.root);
 
@@ -214,9 +221,13 @@ class VisApp extends BaseApp {
         this.yearSelection = yearSelection;
         window.addEventListener('load', () => {
 
+            let guiWidth = $('#guiWidth').css("width");
+            guiWidth = parseInt(guiWidth, 10);
+            if(!guiWidth) guiWidth = window.innerWidth * 0.1;
+
             let controlKit = new ControlKit();
 
-            controlKit.addPanel({label: "Configuration", width: 200, enable: false})
+            controlKit.addPanel({label: "Configuration", align: "right", width: guiWidth, enable: false})
                 .addSubGroup({label: 'Appearance', enable: false})
                     .addColor(appearanceConfig, 'Node', {colorMode: 'hex', onChange: () => {
                         this.onNodeColourChanged(appearanceConfig.Node);
