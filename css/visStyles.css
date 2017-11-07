@@ -92,15 +92,6 @@ body {
     width: 100%;
     font-size: 2.75vw;
 }
-.hidden {
-    display: none;
-}
-.centred {
-    text-align: center;
-}
-.lefted {
-    text-align: left;
-}
 #title {
     position: absolute;
     top: 1%;
@@ -120,92 +111,6 @@ body {
     top: 0;
     right: 0;
     width: 20%;
-}
-.mainButton {
-    border-radius: 5px;
-    position: absolute;
-    padding: 5px;
-    background-color: rgba(150, 150, 150, 0.5);
-    overflow: hidden;
-    color: #7fa5ff;
-}
-.mainText {
-    background-color: rgba(150, 150, 150, 0.0);
-    overflow: hidden;
-    color: #7fa5ff;
-}
-#loadButton {
-    top: 50px;
-    left: 75px;
-}
-.upload {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    margin: 0;
-    padding: 0px;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    background-color: #004040;
-    cursor: pointer;
-}
-.infoHeader {
-    text-align: center;
-}
-#records {
-    font-size: 1vw;
-    color: white;
-}
-#records .row {
-    margin-bottom: 4%;
-}
-.nodeInfo {
-    position: absolute;
-    width: 300px;
-    top: 300px;
-    left: 300px;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: rgba(119, 119, 119, 0.50);
-    color: #7fa5ff;
-}
-.vis-button {
-    background-color: rgba(150, 150, 150, 0.5);
-    color: #7fa5ff;
-}
-.controls {
-    margin: 0px;
-}
-.singleControl {
-    margin: 0px;
-    text-align: center;
-}
-.button-xsmall {
-    font-size: 70%;
-}
-
-#instructionTitle {
-    font-size: 2vw;
-    color: darkred;
-    font-family: 'maximum_line_speederregular';
-}
-#instructionTitle img {
-    width: 15%;
-}
-#instructPage {
-    background-color: #5c5f64;
-}
-.instructionText p {
-    color: white;
-    text-align: left;
-}
-.instructionText h3 {
-    text-align: left;
-    color: #303030;
-}
-.instructionText img {
-    width: 50%;
 }
 #selectorContainer {
     right: 1.5%;
@@ -252,4 +157,43 @@ body {
     color: white;
     font-size: 3.5vw;
     -webkit-touch-callout: none;
+}
+/* Media queries */
+@media (min-width: 568px) {
+    #title {
+        font-size: 2.5vw;
+    }
+    #information {
+        top: 20%;
+        width: 25%;
+    }
+    #infoText p {
+        font-size: 2vw;
+    }
+    #infoData {
+        font-size: 1.75vw;
+    }
+    #camControls {
+        width: 10%;
+        bottom: 55%;
+    }
+    #zoomControl {
+        bottom: 38.5%;
+        right: 0.75%;
+        width: 10%;
+    }
+    #zoomControl p {
+        font-size: 2.75vw;
+    }
+    #selectorContainer {
+        right: 0.5%;
+        width: 12.5%;
+    }
+    #instructions {
+        width: 8%;
+    }
+    #copyright {
+        font-size: 3vw;
+        left: 12.5%;
+    }
 }
