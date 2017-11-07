@@ -2,6 +2,10 @@
  * Created by atg on 14/05/2014.
  */
 //Common baseline for visualisation app
+const PORTRAIT = 0;
+const LANDSCAPE = 1;
+const CAM_POS_PORTRAIT_X = 0, CAM_POS_PORTRAIT_Y = 3100, CAM_POS_PORTRAIT_Z = 4600;
+const CAM_POS_LANDSCAPE_X = 0, CAM_POS_LANDSCAPE_Y = 2000, CAM_POS_LANDSCAPE_Z = 2500;
 
 class BaseApp {
     constructor() {
@@ -156,11 +160,13 @@ class BaseApp {
     }
 
     createCamera() {
-        const CAM_X = 0, CAM_Y = 3100, CAM_Z = 4600;
+        let camPortrait = new THREE.Vector3(CAM_POS_PORTRAIT_X, CAM_POS_PORTRAIT_Y, CAM_POS_PORTRAIT_Z);
+        let camLandscape = new THREE.Vector3(CAM_POS_LANDSCAPE_X, CAM_POS_LANDSCAPE_Y, CAM_POS_LANDSCAPE_Z);
         const NEAR_PLANE = 0.1, FAR_PLANE = 20000;
-        this.defaultCamPos = new THREE.Vector3(CAM_X, CAM_Y, CAM_Z);
         this.camera = new THREE.PerspectiveCamera(45, this.container.clientWidth / window.innerHeight, NEAR_PLANE, FAR_PLANE );
-        this.camera.position.copy(this.defaultCamPos);
+        this.camera.position.copy(camPortrait);
+        this.camPortrait = camPortrait;
+        this.camLandscape = camLandscape;
     }
 
     moveCamera(rotation) {
@@ -172,6 +178,11 @@ class BaseApp {
         let deltaX = radius*Math.sin(this.cameraRotation);
         let deltaZ = radius*Math.cos(this.cameraRotation);
         this.camera.position.set(this.lookAt.x + deltaX, this.camera.position.y, this.lookAt.z + deltaZ);
+    }
+
+    setCamera(mode) {
+        let camPos = mode === PORTRAIT ? this.camPortrait : this.camLandscape;
+        this.camera.position.copy(camPos);
     }
 
     createControls() {
@@ -194,11 +205,6 @@ class BaseApp {
         let lookAt = new THREE.Vector3(LOOK_X, LOOK_Y, LOOK_Z);
         this.controls.setLookAt(lookAt);
         this.lookAt = lookAt;
-    }
-
-    setCamera(cameraProp) {
-        this.camera.position.set(cameraProp[0].x, cameraProp[0].y, cameraProp[0].z);
-        this.controls.setLookAt(cameraProp[1]);
     }
 
     update() {

@@ -87,6 +87,8 @@ class VisApp extends BaseApp {
             this.tempVec.sub(this.camera.position, this.controls.getLookAt());
             this.tempVec.multiplyScalar(this.moveSpeed * delta);
             this.root.position.add(this.tempVec);
+            //DEBUG
+            console.log("Root = ", this.root.position);
         }
 
         if(this.zoomingOut) {
@@ -102,6 +104,8 @@ class VisApp extends BaseApp {
 
     createScene() {
         super.createScene();
+
+        this.fitToScreen();
 
         //Root node
         this.root = new THREE.Object3D();
@@ -122,6 +126,15 @@ class VisApp extends BaseApp {
             this.data = data;
             this.addSceneContents();
         });
+    }
+
+    fitToScreen() {
+        //If in portrait mode then move camera
+        if(window.innerHeight > window.innerWidth) {
+            this.setCamera(PORTRAIT);
+        } else {
+            this.setCamera(LANDSCAPE);
+        }
     }
 
     addGroundPlane() {
