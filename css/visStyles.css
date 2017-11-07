@@ -164,7 +164,8 @@ body {
         font-size: 2.5vw;
     }
     #information {
-        top: 20%;
+        top: 25%;
+        left: 0.5%;
         width: 25%;
     }
     #infoText p {
@@ -175,10 +176,10 @@ body {
     }
     #camControls {
         width: 10%;
-        bottom: 55%;
+        bottom: 70%;
     }
     #zoomControl {
-        bottom: 38.5%;
+        bottom: 52.5%;
         right: 0.75%;
         width: 10%;
     }
@@ -190,10 +191,10 @@ body {
         width: 12.5%;
     }
     #instructions {
-        width: 8%;
+        width: 7%;
     }
     #copyright {
-        font-size: 3vw;
+        font-size: 2.5vw;
         left: 12.5%;
     }
 }
