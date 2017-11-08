@@ -212,7 +212,7 @@ body {
         width: 25%;
     }
     #information {
-        top: 12.5%;
+        top: 14%;
         width: 35%;
     }
     #infoText p {
@@ -236,6 +236,33 @@ body {
         width: 17.5%;
     }
     #instructions {
+        width: 10%;
+    }
+}
+@media (min-width: 768px) {
+    #information {
+        top: 27.5%;
+        width: 20%;
+    }
+    #infoText p {
+        font-size: 1.75vw;
+    }
+    #camControls {
+        bottom: 52%;
+        width: 8%;
+    }
+    #zoomControl {
+        bottom: 37%;
+        width: 8%;
+    }
+    #traverse img {
+        width: 85%;
+    }
+    #message {
+        width: 50%;
+        font-size: 2vw;
+    }
+    #message img {
         width: 10%;
     }
 }
