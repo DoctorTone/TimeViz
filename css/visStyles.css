@@ -266,3 +266,37 @@ body {
         width: 10%;
     }
 }
+@media (min-width: 768px) and (orientation: portrait) {
+    #information {
+        top: 17.5%;
+        width: 30%;
+    }
+    #infoText p {
+        font-size: 3vw;
+    }
+    #camControls {
+        bottom: 34%;
+        width: 15%;
+    }
+    #zoomControl {
+        bottom: 22.5%;
+        width: 15%;
+    }
+    #selectorContainer {
+        width: 17.5%;
+    }
+    #speedSelect label {
+        font-size: 2.5vw;
+    }
+}
+@media (min-width: 992px) {
+    #information {
+        top: 20%;
+    }
+    #zoomControl {
+        bottom: 25%;
+    }
+    #camControls {
+        bottom: 37.5%;
+    }
+}
