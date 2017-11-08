@@ -300,3 +300,36 @@ body {
         bottom: 37.5%;
     }
 }
+@media (min-width: 1200px) {
+    #title img {
+        width: 12.5%;
+    }
+    #infoText p {
+        font-size: 1.25vw;
+    }
+    #information {
+        width: 15%;
+    }
+    #infoData {
+        font-size: 1.25vw;
+    }
+    #camControls {
+        width: 6%;
+    }
+    #zoomControl {
+        width: 6%;
+    }
+    #zoomControl p {
+        font-size: 2vw;
+    }
+    #selectorContainer {
+        width: 7.5%;
+    }
+    #instructions {
+        width: 5%;
+    }
+    #copyright {
+        left: 7.5%;
+        font-size: 1.5vw;
+    }
+}
