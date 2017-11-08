@@ -39,7 +39,7 @@ class BaseApp {
         this.createRenderer();
         this.createCamera();
         this.createControls();
-        //this.stats = initStats();
+        //this.stats = this.initStats();
         this.statsShowing = false;
         //$("#Stats-output").hide();
     }
@@ -209,7 +209,7 @@ class BaseApp {
 
     update() {
         //Do any updates
-        this.controls.update();
+        //this.controls.update();
     }
 
     run() {

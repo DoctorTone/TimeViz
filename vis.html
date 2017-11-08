@@ -16,7 +16,7 @@
     <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="js/TrackballControls.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/baseApp.js?v=0.7"></script>
+    <script type="text/javascript" src="js/baseApp.js?v=0.8"></script>
     <script type="text/javascript" src="js/dataLoader.js"></script>
     <script type="text/javascript" src="js/spriteManager.js?v=0.3"></script>
     <script type="text/javascript" src="js/visNode.js?v=0.2"></script>
@@ -27,6 +27,24 @@
 <body>
     <div id="guiWidth" class="noDisplay">
         <p>dummy</p>
+    </div>
+    <!-- General Modal -->
+    <div class="modal fade" id="mainModal" tabindex="-1" role="dialog" aria-labelledby="mainModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="mainModalLabel">Economic Visualisation</h4>
+                </div>
+                <div class="modal-body">
+                    Visualisations look best when viewed on a larger display. If using a mobile device, consider viewing in landscape mode.<br>
+                    Hope you enjoy the app!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

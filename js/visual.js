@@ -32,6 +32,7 @@ const MOVE_SPEED = 0.1;
 const ROOT_X = 0;
 const ROOT_Y = -1600;
 const ROOT_Z = -2400;
+const MOBILE_WIDTH = 768;
 
 class VisApp extends BaseApp {
     constructor() {
@@ -522,6 +523,10 @@ $(document).ready(function() {
     if(!Detector.webgl) {
         $('#notSupported').show();
         return;
+    }
+
+    if(window.innerWidth < MOBILE_WIDTH) {
+        $('#mainModal').modal();
     }
 
     //Initialise app
