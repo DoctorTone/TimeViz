@@ -73,7 +73,7 @@ gulp.task("concatJS", function() {
 });
 
 gulp.task("concatCSS", function() {
-    gulp.src(["build/css/visStyles.min.css", "build/css/bootstrap.min.css", "build/css/bootstrap-theme.min.css"])
+    gulp.src(["build/css/bootstrap.min.css", "build/css/visStyles.min.css"])
         .pipe(concat("build.min.css"))
         .pipe(gulp.dest("dist/css/"));
 });

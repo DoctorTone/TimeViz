@@ -31,14 +31,17 @@ body {
     padding-left: 0;
 }
 #notSupported {
-    top: 20%;
+    top: 40%;
     left: 12.5%;
     width: 75%;
     background-color: #3e3e3e;
     color: white;
-    font-size: 1.25vw;
+    font-size: 2.5vw;
     border-radius: 15px;
     padding: 1%;
+}
+#notSupported p img {
+    width: 25%;
 }
 #message {
     bottom: 10%;
@@ -203,6 +206,13 @@ body {
     #message img {
         width: 10%;
     }
+    #notSupported {
+        top: 35%;
+        font-size: 2.25vw;
+    }
+    #notSupported p img {
+        width: 20%;
+    }
 }
 @media (min-width: 568px) and (orientation: portrait) {
     #title {
@@ -237,6 +247,13 @@ body {
     }
     #instructions {
         width: 10%;
+    }
+    #notSupported {
+        top: 35%;
+        font-size: 2.5vw;
+    }
+    #notSupported p img {
+        width: 25%;
     }
 }
 @media (min-width: 768px) {
@@ -288,6 +305,13 @@ body {
     #speedSelect label {
         font-size: 2.5vw;
     }
+    #notSupported {
+        top: 35%;
+        font-size: 2.75vw;
+    }
+    #notSupported p img {
+        width: 30%;
+    }
 }
 @media (min-width: 992px) {
     #information {
@@ -336,5 +360,21 @@ body {
         width: 40%;
         left: 30%;
         padding: 0 0.5%;
+    }
+    #notSupported {
+        top: 30%;
+        font-size: 2.25vw;
+    }
+    #notSupported p img {
+        width: 20%;
+    }
+}
+@media (min-width: 1680px) {
+    #notSupported {
+        top: 30%;
+        font-size: 1.75vw;
+    }
+    #notSupported p img {
+        width: 12.5%;
     }
 }

@@ -89,7 +89,7 @@ class VisApp extends BaseApp {
             this.tempVec.multiplyScalar(this.moveSpeed * delta);
             this.root.position.add(this.tempVec);
             //DEBUG
-            console.log("Root = ", this.root.position);
+            //console.log("Root = ", this.root.position);
         }
 
         if(this.zoomingOut) {
@@ -97,7 +97,7 @@ class VisApp extends BaseApp {
             this.tempVec.multiplyScalar(this.moveSpeed * delta);
             this.root.position.sub(this.tempVec);
             //DEBUG
-            console.log("Root = ", this.root.position);
+            //console.log("Root = ", this.root.position);
         }
 
         super.update();
