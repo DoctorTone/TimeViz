@@ -59,7 +59,7 @@ body {
 #instructions {
     bottom: 1%;
     left: 1%;
-    width: 10%;
+    width: 12.5%;
     -webkit-touch-callout: none;
 }
 #instructions img {
@@ -376,5 +376,8 @@ body {
     }
     #notSupported p img {
         width: 12.5%;
+    }
+    #instructions {
+        width: 4.5%;
     }
 }
