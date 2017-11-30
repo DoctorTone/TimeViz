@@ -197,8 +197,8 @@ body {
         width: 7%;
     }
     #copyright {
-        font-size: 2.5vw;
-        left: 12.5%;
+        font-size: 2.25vw;
+        left: 11%;
     }
     #message {
         font-size: 3vw;
@@ -255,6 +255,9 @@ body {
     #notSupported p img {
         width: 25%;
     }
+    #copyright {
+        font-size: 2.75vw;
+    }
 }
 @media (min-width: 768px) {
     #information {
@@ -281,6 +284,10 @@ body {
     }
     #message img {
         width: 10%;
+    }
+    #copyright {
+        font-size: 2vw;
+        left: 10%;
     }
 }
 @media (min-width: 768px) and (orientation: portrait) {
@@ -311,6 +318,10 @@ body {
     }
     #notSupported p img {
         width: 30%;
+    }
+    #copyright {
+        font-size: 2.5vw;
+        left: 12%;
     }
 }
 @media (min-width: 992px) {
@@ -379,5 +390,8 @@ body {
     }
     #instructions {
         width: 4.5%;
+    }
+    #copyright {
+        font-size: 1.25vw;
     }
 }
